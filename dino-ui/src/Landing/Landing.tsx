@@ -1,4 +1,4 @@
-import Logo from "../common/components/logo"
+import Logo from "common/components/logo"
 
 export const Landing = () => {
   return <>

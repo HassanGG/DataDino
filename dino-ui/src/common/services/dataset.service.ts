@@ -1,4 +1,4 @@
-import { Dataset } from "@common/data/dataset"
+import { Dataset } from "common/data/dataset"
 
 export const DatasetService = class {
   async getAll(): Promise<Dataset[]> {

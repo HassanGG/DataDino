@@ -1,4 +1,4 @@
-import { ReactComponent as LogoImage } from "./dino-logo.svg"
+import { ReactComponent as LogoImage } from "static/dino-logo.svg"
 import style from "./Logo.module.css"
 
 export const Logo = ({ large }: { large: boolean }) => {
