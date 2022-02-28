@@ -1,0 +1,27 @@
+version: "3"
+services:
+  dino-db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    image: dino-mysql
+    networks:
+      - dino-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dinodb
+
+  dino-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    image: dino-spring
+    ports:
+      - "8080:8080"
+    networks:
+      - dino-net
+    depends_on:
+      - dino-db
+
+networks:
+  dino-net:
