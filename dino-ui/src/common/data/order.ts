@@ -4,7 +4,7 @@ export interface Order {
   state: OrderState
   items: OrderItem[]
   total: number
-  purchasedAt: number
+  purchasedAt: String
 }
 
 export interface OrderItem {
@@ -13,8 +13,7 @@ export interface OrderItem {
 }
 
 export enum OrderState {
-  Pending = "Pending",
   Complete = "Complete",
-  Cancelled = "Cancelled",
   Error = "Error",
+  Refunded = "Refunded",
 }

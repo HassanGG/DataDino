@@ -5,10 +5,6 @@ export interface User {
   token: String
   displayName?: String
   email: String
+  isOwner: boolean
+  cart?: OrderItem[]
 }
-
-export interface Customer extends User {
-  cart: OrderItem[]
-}
-
-export interface Owner extends User {}

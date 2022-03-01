@@ -4,7 +4,7 @@ export interface Dataset {
   description?: String
   datapointPrice: number
   datapointCount: number
-  uploadedAt: number
+  uploadedAt: String
   archived: boolean
 }
 
