@@ -8,6 +8,5 @@ export const Logo = ({ large }: { large: boolean }) => {
         [style.large]: large,
     })
 
-    // const _style = style.logo + " " + large && style.large
-    return <LogoImage className={_style}/>
+    return <LogoImage className={_style} />
 }
