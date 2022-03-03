@@ -1,5 +1,5 @@
 type ClassNameConditions = {
-  readonly [key: string]: boolean
+  readonly [key: string]: boolean | undefined
 }
 
 /**

@@ -1,8 +1,9 @@
 import Logo from "common/components/logo"
+import Label from "common/components/label"
 
 export const Landing = () => {
   return <>
-    <h1>Landing Page</h1>
-    <Logo large={true}/>
+    <Label h1 text="Landing Page" />
+    <Logo large />
   </>
 }
