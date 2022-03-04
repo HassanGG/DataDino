@@ -1,0 +1,38 @@
+:root {
+	--margin-size: 15px;
+	--background-color: #90bcb3;
+}
+
+.container {
+	background-color: var(--background-color);
+	width: 95vw;
+	margin-left: auto;
+	margin-right: auto;
+	height: 64px;
+}
+
+.containerLg {
+	height: 350px;
+}
+
+.center {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.left {
+	position: absolute;
+	top: var(--margin-size);
+	left: 0px;
+}
+
+.right {
+	position: absolute;
+	top: var(--margin-size);
+	right: 0px;
+}

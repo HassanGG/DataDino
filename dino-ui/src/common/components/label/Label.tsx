@@ -8,6 +8,8 @@ import style from "./Label.module.css";
  */
 export const Label = ({
   text,
+  fontSize,
+  title,
   bold,
   italic,
   h1,
@@ -19,6 +21,8 @@ export const Label = ({
   inline,
 }: {
   text: string,
+  fontSize?: number,
+  title?: boolean,
   bold?: boolean,
   italic?: boolean,
   h1?: boolean,
@@ -31,6 +35,7 @@ export const Label = ({
 }) => {
   const _style = useStyle({
     [style.label]: true,
+    [style.title]: title,
     [style.bold]: bold,
     [style.italic]: italic,
     [style.inline]: inline,
@@ -47,5 +52,5 @@ export const Label = ({
     return "div"
   })()
 
-  return <Tag className={_style}>{ text }</Tag>
+  return <Tag className={_style} style={{"fontSize": fontSize}} > { text } </Tag>
 };
