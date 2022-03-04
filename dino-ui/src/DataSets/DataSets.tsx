@@ -1,3 +1,10 @@
+import { Navbar } from 'navbar/Navbar'
+
 export const Datasets = () => {
-  return <h1>Datasets</h1>
+	return (
+		<>
+      <Navbar large={false} />
+			<h1>Datasets</h1>
+		</>
+	)
 }
