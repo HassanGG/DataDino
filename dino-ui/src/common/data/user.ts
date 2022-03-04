@@ -1,10 +1,10 @@
 import { OrderItem } from "./order"
 
 export interface User {
-  id: String
-  token: String
-  displayName?: String
-  email: String
+  id: string
+  token: string
+  displayName?: string
+  email: string
   isOwner: boolean
   cart?: OrderItem[]
 }

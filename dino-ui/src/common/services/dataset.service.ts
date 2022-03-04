@@ -5,7 +5,7 @@ export const DatasetService = class {
     return Promise.resolve([])
   }
 
-  async get({ id }: { id: String }): Promise<Dataset | undefined> {
+  async get({ id }: { id: string }): Promise<Dataset | undefined> {
     return Promise.resolve(undefined);
   }
 }

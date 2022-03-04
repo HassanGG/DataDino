@@ -1,10 +1,10 @@
 export interface Dataset {
-  id: String
-  name: String
-  description?: String
+  id: string
+  name: string
+  description?: string
   datapointPrice: number
   datapointCount: number
-  uploadedAt: String
+  uploadedAt: string
   archived: boolean
 }
 

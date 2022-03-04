@@ -1,0 +1,6 @@
+.card {
+    /* font-family: var(--font-family); */
+    background-color: var(--card-color);
+    max-width: 340px;
+    border: none;
+}
