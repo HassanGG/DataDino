@@ -1,6 +1,7 @@
 package com.team7.dino;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +17,12 @@ public class User {
     private String email;
     @Column(name = "is_admin", nullable = false)
     private Boolean isAdmin;
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
+
+    public Set<Order> getOrders() { return orders; }
+
+    public void setOrders(Set<Order> orders) { this.orders = orders; }
 
     public String getDisplayName() {
         return displayName;
