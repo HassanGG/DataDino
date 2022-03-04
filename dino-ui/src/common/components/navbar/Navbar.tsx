@@ -4,14 +4,7 @@ import { useStyle } from "common/utils/css"
 import style from "./Navbar.module.css"
 import { NavbarItem } from "./NavBarItem"
 
-export const Navbar = ({ large }: { large: boolean }) => {
-    const TitleDesc = () => {
-        return <div className="mt-4">
-                        <Label title fontSize={ 50 } text="DATADINO" />
-                        <Label h6 text="So much data it will make you rawr" />
-                </div>
-    }
-
+export const Navbar = ({ large }: { large?: boolean }) => {
     const leftStyle = useStyle({
         [style.left]: true,
         "d-inline-flex": true
@@ -30,20 +23,26 @@ export const Navbar = ({ large }: { large: boolean }) => {
 
     return (
 			<nav className={navStyle}>
-				<div className='container-fluid'>
+				<div className="container-fluid">
 					<div className={style.center}>
-						<a className='navbrand' href='/'>
-							<Logo large={large} />
+						<a className="navbrand" href="/">
+							<Logo large={Boolean(large)} />
 						</a>
-						{large && <TitleDesc />}
+						{
+                            large &&
+                            <div className="mt-4">
+                                <Label title fontSize={60} text="DATADINO" />
+                                <Label h6 text="So much data it will make you rawr" />
+                            </div>
+                        }
 					</div>
 					<div className={leftStyle}>
-						<NavbarItem text='DOCS' link='#' />
-						<NavbarItem text='DEMO' link='#' />
+						<NavbarItem text="DOCS" link="#" />
+						<NavbarItem text="DEMO" link="#" />
 					</div>
 					<div className={rightStyle}>
-						<NavbarItem text='LOGIN' link='#' />
-						<NavbarItem text='BROWSE' link='/datasets' />
+						<NavbarItem text="LOGIN" link="#" />
+						<NavbarItem text="BROWSE" link="/datasets" />
 					</div>
 				</div>
 			</nav>
