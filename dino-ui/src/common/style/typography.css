@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 
 :root {
-    --font-family: 'Montserrat', system-ui;
+    /* --font-family: 'Montserrat', system-ui; */
     --bold: 600;
     --font-family-title: 'Bungee Shade', system-ui;
 }

@@ -1,10 +1,10 @@
-import { Navbar } from 'navbar/Navbar'
+import Page from 'common/components/page'
+
 
 export const Datasets = () => {
-	return (
-		<>
-      <Navbar large={false} />
+	return <>
+		<Page>
 			<h1>Datasets</h1>
-		</>
-	)
+		</Page>
+	</>
 }

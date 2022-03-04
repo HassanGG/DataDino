@@ -1,6 +1,6 @@
 import Label from "common/components/label"
-import { Navbar } from "navbar/Navbar"
 import DatasetCard from "common/components/dataset-card"
+import Page from "common/components/page"
 
 export const Landing = () => {
   const dataset = {
@@ -13,8 +13,8 @@ export const Landing = () => {
     archived: false
   }
   return <>
-    <Navbar large />
-    <DatasetCard dataset={dataset} />
-    <Label h1 text="Landing Page" />
+    <Page largeNavbar>
+      <DatasetCard dataset={dataset} />
+    </Page>
   </>
 }
