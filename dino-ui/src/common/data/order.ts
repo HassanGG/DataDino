@@ -1,14 +1,14 @@
 export interface Order {
-  id: String
-  customerId: String
+  id: string
+  customerId: string
   state: OrderState
   items: OrderItem[]
   total: number
-  purchasedAt: String
+  purchasedAt: string
 }
 
 export interface OrderItem {
-  datasetId: String
+  datasetId: string
   datapointCount: number
 }
 

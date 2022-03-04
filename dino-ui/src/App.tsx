@@ -1,4 +1,5 @@
-import './App.css';
+import 'common/style/theme.css'
+import 'common/style/typography.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Landing } from "./landing/Landing"
 import { Datasets } from "./datasets/Datasets"

@@ -12,6 +12,7 @@ export const Label = ({
   title,
   bold,
   italic,
+  small,
   h1,
   h2,
   h3,
@@ -25,6 +26,7 @@ export const Label = ({
   title?: boolean,
   bold?: boolean,
   italic?: boolean,
+  small?: boolean,
   h1?: boolean,
   h2?: boolean,
   h3?: boolean,
@@ -42,6 +44,7 @@ export const Label = ({
   })
 
   const Tag = (() => {
+    if (small) return "small"
     if (h1) return "h1"
     if (h2) return "h2"
     if (h3) return "h3"
@@ -52,5 +55,5 @@ export const Label = ({
     return "div"
   })()
 
-  return <Tag className={_style} style={{"fontSize": fontSize}} > { text } </Tag>
+  return <Tag className={_style} style={{"fontSize": fontSize}}> { text } </Tag>
 };
