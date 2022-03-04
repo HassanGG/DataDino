@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile.db
     image: dino-mysql
+    ports:
+      - "3306:3306"
     networks:
       - dino-net
     environment:
@@ -21,7 +23,7 @@ services:
     networks:
       - dino-net
     depends_on:
-      - dino-db
+      - "dino-db"
 
 networks:
   dino-net:

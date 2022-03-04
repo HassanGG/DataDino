@@ -1,3 +1,14 @@
+# Run
+`bash run.sh`
+
+# Clean
+`bash clean.sh`
+
+# Run sql client against db
+`docker run -it --network dino-backend_dino-net --rm mysql mysql -hdino-backend-dino-db-1 -uroot -p`
+or `bash client.sh`
+- password is "root"
+
 # Most important 
 ### Repackage backend
 `mvn package -D skipTests`
