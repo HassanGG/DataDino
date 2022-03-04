@@ -24,7 +24,6 @@ services:
       - dino-net
     depends_on:
       - "dino-db"
-    command: ["./wait-for-it.sh", "-t", "0", "dino-backend-dino-db-1:3306", "--", "java", "-jar", "dino.jar"]
-
+    command: ["./wait-for-it.sh", "-t", "30", "dino-backend-dino-db-1:3306", "--", "java", "-jar", "dino.jar"]
 networks:
   dino-net:
