@@ -1,4 +1,4 @@
-package com.team7.dino;
+package com.team7.dino.entity;
 
 import javax.persistence.*;
 import java.util.UUID;
