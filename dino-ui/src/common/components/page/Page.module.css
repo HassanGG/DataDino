@@ -1,3 +1,8 @@
 .page {
   margin: 0 60px 80px 60px;
 }
+
+.icon {
+  width: 1em;
+  font-size: 18px;
+}

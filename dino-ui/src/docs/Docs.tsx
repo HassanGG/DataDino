@@ -1,6 +1,6 @@
 import Page from "common/components/page"
 
-export const Docs = () => {
+export const DocsPage = () => {
   return (
     <>
       <Page>

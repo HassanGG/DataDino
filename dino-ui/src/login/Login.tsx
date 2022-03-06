@@ -1,6 +1,6 @@
 import Page from "common/components/page"
 
-export const Login = () => {
+export const LoginPage = () => {
   return (
     <>
       <Page>

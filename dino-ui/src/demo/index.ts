@@ -1,3 +1,3 @@
-import { Demo } from "./Demo"
+import { DemoPage } from "./Demo"
 
-export default Demo
+export default DemoPage

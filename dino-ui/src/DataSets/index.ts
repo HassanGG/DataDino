@@ -1,3 +1,3 @@
-import { Datasets } from "./Datasets"
+import { DatasetsPage } from "./Datasets"
 
-export default Datasets
+export default DatasetsPage
