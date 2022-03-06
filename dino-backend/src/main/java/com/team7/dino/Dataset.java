@@ -1,5 +1,7 @@
 package com.team7.dino;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.UUID;
 

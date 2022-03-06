@@ -17,7 +17,7 @@ public class User {
     private String email;
     @Column(name = "is_admin", nullable = false)
     private Boolean isAdmin;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userId")
     private Set<Order> orders;
 
     public Set<Order> getOrders() { return orders; }
