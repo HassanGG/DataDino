@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "order")
 public class Order {
 
     @Id
@@ -11,8 +12,8 @@ public class Order {
     @Column(name = "id", nullable = false, unique = true)
     private UUID id;
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private User user;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User userId;
     @Column(name = "state", nullable = false, length = 8)
     String state;
     @Column(name = "total", nullable = false)
@@ -55,11 +56,11 @@ public class Order {
     }
 
     public User getUser() {
-        return user;
+        return userId;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.userId = user;
     }
 }
 
