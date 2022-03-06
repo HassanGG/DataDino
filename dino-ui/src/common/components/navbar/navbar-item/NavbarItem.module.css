@@ -1,0 +1,12 @@
+.link {
+	border-radius: 0.25rem;
+  background-color: var(--navbar-color);
+}
+
+.link h6 {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.link:hover {
+	filter: brightness(85%);
+}
