@@ -1,4 +1,4 @@
-package com.team7.dino;
+package com.team7.dino.entity;
 
 import lombok.Data;
 
