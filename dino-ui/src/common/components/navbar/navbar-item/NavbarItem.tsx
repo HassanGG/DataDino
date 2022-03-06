@@ -4,19 +4,17 @@ import style from "./NavbarItem.module.css"
 import { useStyle } from "common/utils/css"
 
 export const NavbarItem = ({ text, link }: { text: string; link: string }) => {
-	const _style = useStyle({
-		"nav-link": true,
-		"text-dark": true,
-		[style.link]: true
-	})
+  const _style = useStyle({
+    "nav-link": true,
+    "text-dark": true,
+    [style.link]: true,
+  })
 
-	return (
-		<>
-			<NavLink
-				to={link}
-				className={_style}>
-					<Label h6 bold text={text} />
-			</NavLink>
-		</>
-	)
+  return (
+    <>
+      <NavLink to={link} className={_style}>
+        <Label h6 bold text={text} />
+      </NavLink>
+    </>
+  )
 }

@@ -3,10 +3,10 @@ import { useStyle } from "common/utils/css"
 import style from "./Logo.module.css"
 
 export const Logo = ({ large }: { large: boolean }) => {
-    const _style = useStyle({
-        [style.logo]: true,
-        [style.large]: large,
-    })
+  const _style = useStyle({
+    [style.logo]: true,
+    [style.large]: large,
+  })
 
-    return <LogoImage className={_style} />
+  return <LogoImage className={_style} />
 }

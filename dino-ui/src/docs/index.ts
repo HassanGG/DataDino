@@ -1,3 +1,3 @@
-import { Docs } from "./Docs";
+import { Docs } from "./Docs"
 
 export default Docs
