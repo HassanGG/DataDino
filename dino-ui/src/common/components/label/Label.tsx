@@ -1,5 +1,5 @@
-import { useStyle } from "common/utils/css";
-import style from "./Label.module.css";
+import { useStyle } from "common/utils/css"
+import style from "./Label.module.css"
 
 /**
  * Note: if a h tag is specified,
@@ -21,19 +21,19 @@ export const Label = ({
   h6,
   inline,
 }: {
-  text: string,
-  fontSize?: number,
-  title?: boolean,
-  bold?: boolean,
-  italic?: boolean,
-  small?: boolean,
-  h1?: boolean,
-  h2?: boolean,
-  h3?: boolean,
-  h4?: boolean,
-  h5?: boolean,
-  h6?: boolean,
-  inline?: boolean,
+  text: string
+  fontSize?: number
+  title?: boolean
+  bold?: boolean
+  italic?: boolean
+  small?: boolean
+  h1?: boolean
+  h2?: boolean
+  h3?: boolean
+  h4?: boolean
+  h5?: boolean
+  h6?: boolean
+  inline?: boolean
 }) => {
   const _style = useStyle({
     [style.label]: true,
@@ -55,5 +55,10 @@ export const Label = ({
     return "div"
   })()
 
-  return <Tag className={_style} style={{"fontSize": fontSize}}> { text } </Tag>
-};
+  return (
+    <Tag className={_style} style={{ fontSize: fontSize }}>
+      {" "}
+      {text}{" "}
+    </Tag>
+  )
+}

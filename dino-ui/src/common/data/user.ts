@@ -1,10 +1,10 @@
-import { OrderItem } from "./order";
+import { OrderItem } from "./order"
 
 export interface User {
-  id: string;
-  token: string;
-  displayName?: string;
-  email: string;
-  isOwner: boolean;
-  cart?: OrderItem[];
+  id: string
+  token: string
+  displayName?: string
+  email: string
+  isOwner: boolean
+  cart?: OrderItem[]
 }

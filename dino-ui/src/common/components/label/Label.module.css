@@ -1,20 +1,20 @@
 .label {
-	font-family: var(--font-family), system-ui;
+  font-family: var(--font-family), system-ui;
 }
 
 .title {
-	font-family: var(--font-family-title);
+  font-family: var(--font-family-title);
   font-weight: 800;
 }
 
 .bold {
-	font-weight: 700;
+  font-weight: 700;
 }
 
 .italic {
-	font-style: italic;
+  font-style: italic;
 }
 
 .inline {
-	display: inline-block;
+  display: inline-block;
 }

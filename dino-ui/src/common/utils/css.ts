@@ -1,6 +1,6 @@
 type ClassNameConditions = {
-  readonly [key: string]: boolean | undefined;
-};
+  readonly [key: string]: boolean | undefined
+}
 
 /**
  * Conditionally include class names imported
@@ -25,5 +25,5 @@ export const useStyle = (classNameConditions: ClassNameConditions) => {
     (acc, [className, condition]) =>
       !condition ? acc : `${acc} ${className}`.trimStart(),
     ""
-  );
-};
+  )
+}
