@@ -29,3 +29,4 @@ services:
     command: ["./wait-for-it.sh", "-t", "30", "dino-db:3306", "--", "java", "-jar", "dino.jar"]
 networks:
   dino-net:
+
