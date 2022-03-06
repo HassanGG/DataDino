@@ -1,4 +1,2 @@
 FROM mysql
-#CMD ["rm","-r","/var/lib/mysql"]
 ADD ./createdb.sql /docker-entrypoint-initdb.d/createdb.sql
-#RUN rm -r /var/lib/mysql

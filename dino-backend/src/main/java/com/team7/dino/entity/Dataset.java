@@ -1,4 +1,6 @@
-package com.team7.dino;
+package com.team7.dino.entity;
+
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -12,16 +14,16 @@ public class Dataset {
     private UUID id;
     @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "description")
+    @Column(name = "description", length = 1000)
     private String description;
     @Column(name = "datapoint_price", nullable = false)
     private int datapointPrice;
     @Column(name = "datapoint_count", nullable = false)
     private int datapointCount;
-    @Column(name = "uploaded_at", nullable = false)
+    @Column(name = "uploaded_at", nullable = false, length = 50)
     private String uploadedAt;
     @Column(name = "archived", nullable = false)
-    private int Archived;
+    private Boolean Archived;
 
     public String getName() {
         return name;
@@ -63,11 +65,11 @@ public class Dataset {
         this.uploadedAt = uploadedAt;
     }
 
-    public int getArchived() {
+    public Boolean getArchived() {
         return Archived;
     }
 
-    public void setArchived(int archived) {
+    public void setArchived(Boolean archived) {
         Archived = archived;
     }
 
