@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "REACT_APP_MOCKING=enabled npm start",
+    "dev": "cross-env REACT_APP_MOCKING=enabled npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "msw": "^0.38.2"
   },
   "msw": {
