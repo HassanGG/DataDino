@@ -9,7 +9,7 @@ import Login from "login"
 import DatasetProvider from "common/shared/DatasetContext"
 
 if (process.env.REACT_APP_MOCKING === "enabled") {
-	require("mocks")
+	import("mocks")
 }
 
 const App = () => {
