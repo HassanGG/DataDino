@@ -12,7 +12,7 @@ const response = (method: string, body: string) => {
   }
 }
 
-export const DatasetService = class {
+export const DatasetService = new class {
   async getAll(): Promise<Dataset[]> {
     const res = await fetch(baseUrl);
     if (!res.ok) console.log(res.statusText);
@@ -45,4 +45,4 @@ export const DatasetService = class {
 
     return res.statusText;
   }
-};
+}()
