@@ -32,7 +32,7 @@ export const Page = ({
 
   const navigate = useNavigate()
 
-  const back = () => navigate("..")
+  const back = () => navigate(-1)
   const toCart = () => navigate("./cart")
 
   return (
