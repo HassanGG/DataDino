@@ -20,7 +20,7 @@ public class UserController {
     private UserRepository repository;
 
 
-    @RequestMapping(value="/users{id}", method=GET)
+    @RequestMapping(value="/dino-backend/users{id}", method=GET)
     @ResponseBody
     private Optional<User> getUserById(@PathVariable String id) {
         id = id.substring(1, id.length() - 1);
