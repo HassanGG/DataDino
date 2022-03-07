@@ -43,9 +43,9 @@ public class Dataset {
     @Column(nullable = false)
     private Boolean archived;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "datasetId")
-    private Set<CartItem> cartItems;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "datasetId")
-    private Set<OrderItem> orderItems;
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "datasetId")
+//    private Set<CartItem> cartItems;
+//
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "datasetId")
+//    private Set<OrderItem> orderItems;
 }

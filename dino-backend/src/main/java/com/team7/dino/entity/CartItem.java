@@ -22,7 +22,7 @@ public class CartItem {
     @Type(type = "org.hibernate.type.UUIDCharType")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", columnDefinition = "char(36)")
-    private UUID cartItemId;
+    private UUID ItemId;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "userId", nullable = false)

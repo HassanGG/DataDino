@@ -26,7 +26,7 @@ public class Order {
     @Column(columnDefinition = "char(36)")
     private UUID orderId;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(nullable = false)
     private User userId;
 
