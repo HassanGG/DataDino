@@ -9,9 +9,11 @@ type Slot = undefined | JSX.Element | JSX.Element[] | string
 export const Page = ({
   children,
   largeNavbar,
+  showBar,
 }: {
   children: Slot
   largeNavbar?: boolean
+  showBar?: boolean
 }) => {
   const _style = useStyle({
     [style.page]: true,
@@ -40,7 +42,7 @@ export const Page = ({
       <div className={_style}>
         <Navbar large={largeNavbar} />
 
-        {!largeNavbar && (
+        {showBar && (
           <div className="d-flex justify-content-between">
             <div className="btn btn-light" onClick={back}>
               <i className={backIconStyle}></i>

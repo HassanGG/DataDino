@@ -19,13 +19,12 @@ export const DatasetsPage = () => {
           <button
             className="btn btn-light border"
             type="button"
-            id="button-addon1"
-          >
+            id="button-addon1">
             <i className="bi bi-search"></i>
           </button>
           <input
-            onBlur={e => setInput((e.target as any).value)}
-            onKeyUp={e =>
+            onBlur={(e) => setInput((e.target as any).value)}
+            onKeyUp={(e) =>
               e.key === "Enter" && setInput((e.target as any).value)
             }
             type="text"
@@ -35,8 +34,8 @@ export const DatasetsPage = () => {
             aria-describedby="addon-wrapping"
           />
         </div>
-        <div className="d-flex flex-wrap gy-2" style={{ columnGap: "16px" }}>
-          {filteredDatasets.map(dataset => (
+        <div className="d-flex flex-wrap gy-2" style={{ columnGap: "30px" }}>
+          {filteredDatasets.map((dataset) => (
             <DatasetCard key={dataset.id} dataset={dataset} />
           ))}
         </div>
@@ -46,7 +45,7 @@ export const DatasetsPage = () => {
 
   return (
     <>
-      <Page>
+      <Page showBar>
         <QueryComponent query={query} onData={onData} />
       </Page>
     </>

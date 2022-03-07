@@ -4,6 +4,8 @@ import { useStyle } from "common/utils/css"
 import style from "./Navbar.module.css"
 import NavbarItem from "./navbar-item"
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { UserContext } from "shared/userContext"
 
 export const Navbar = ({ large }: { large?: boolean }) => {
   const leftStyle = useStyle({
@@ -21,6 +23,10 @@ export const Navbar = ({ large }: { large?: boolean }) => {
     [style.containerLg]: large,
     navbar: true,
   })
+
+  const { user } = useContext(UserContext)
+  const link = user ? "/profile" : "/login"
+  const text = user ? "PROFILE" : "LOGIN"
 
   return (
     <nav className={navStyle}>
@@ -41,7 +47,8 @@ export const Navbar = ({ large }: { large?: boolean }) => {
           <NavbarItem text="DEMO" link="/demo" />
         </div>
         <div className={rightStyle}>
-          <NavbarItem text="LOGIN" link="/login" />
+          {user?.isOwner && <NavbarItem text="ADMIN" link="/admin" />}
+          <NavbarItem text={text} link={link} />
           <NavbarItem text="BROWSE" link="/datasets" />
         </div>
       </div>
