@@ -1,2 +1,2 @@
 FROM mysql
-ADD ./createdb.sql /docker-entrypoint-initdb.d/createdb.sql
+#ADD ./createdb.sql /docker-entrypoint-initdb.d/createdb.sql
