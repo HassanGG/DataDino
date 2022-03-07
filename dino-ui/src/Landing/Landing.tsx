@@ -17,7 +17,7 @@ export const LandingPage = () => {
     return (
       <>
         <div>
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center mt-4">
             <p className="h4 mb-3">
               New
               <small className="text-muted ms-2">
