@@ -1,3 +1,3 @@
-import { Docs } from "./Docs"
+import { DocsPage } from "./Docs"
 
-export default Docs
+export default DocsPage

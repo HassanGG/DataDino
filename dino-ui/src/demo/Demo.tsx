@@ -1,6 +1,6 @@
 import Page from "common/components/page"
 
-export const Demo = () => {
+export const DemoPage = () => {
   return (
     <>
       <Page>

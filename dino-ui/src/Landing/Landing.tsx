@@ -6,7 +6,7 @@ import { useQuery } from "react-query"
 import { Dataset } from "common/data/dataset"
 import QueryComponent from "common/components/query-component"
 
-export const Landing = () => {
+export const LandingPage = () => {
   const query = useQuery("new-datasets", DatasetService.getAll)
   const onData = (datasets: Dataset[]) => {
     const newestDatasets = datasets

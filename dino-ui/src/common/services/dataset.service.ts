@@ -8,7 +8,7 @@ export const DatasetService = new (class {
     return await fetchJson(baseUrl)
   }
 
-  async get({ id }: { id: string }): Promise<Dataset | undefined> {
+  async get({ id }: { id: string }): Promise<Dataset> {
     return await fetchJson(`${baseUrl}/${id}`)
   }
 

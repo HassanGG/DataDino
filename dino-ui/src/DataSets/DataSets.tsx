@@ -5,7 +5,7 @@ import { useQuery } from "react-query"
 import QueryComponent from "common/components/query-component"
 import { Dataset } from "common/data/dataset"
 
-export const Datasets = () => {
+export const DatasetsPage = () => {
   const query = useQuery("datasets", DatasetService.getAll)
   const onData = (datasets: Dataset[]) => {
     return (
