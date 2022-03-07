@@ -1,83 +1,51 @@
 package com.team7.dino.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "dataset")
 public class Dataset {
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, unique = true)
-    private UUID id;
-    @Column(name = "name", nullable = false)
+    @GeneratedValue(generator = "UUID")
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(columnDefinition = "char(36)")
+    private UUID datasetId;
+
+    @Column(nullable = false)
     private String name;
-    @Column(name = "description", length = 1000)
+
+    @Column(length = 1000)
     private String description;
-    @Column(name = "datapoint_price", nullable = false)
-    private int datapointPrice;
-    @Column(name = "datapoint_count", nullable = false)
+
+    @Column(nullable = false)
+    private double datapointPrice;
+
+    @Column(nullable = false)
     private int datapointCount;
-    @Column(name = "uploaded_at", nullable = false, length = 50)
+
+    @Column(nullable = false, length = 50)
     private String uploadedAt;
-    @Column(name = "archived", nullable = false)
-    private Boolean Archived;
 
-    public String getName() {
-        return name;
-    }
+    @Column(nullable = false)
+    private Boolean archived;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "datasetId")
+    private Set<CartItem> cartItems;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getDatapointPrice() {
-        return datapointPrice;
-    }
-
-    public void setDatapointPrice(int datapointPrice) {
-        this.datapointPrice = datapointPrice;
-    }
-
-    public int getDatapointCount() {
-        return datapointCount;
-    }
-
-    public void setDatapointCount(int datapointCount) {
-        this.datapointCount = datapointCount;
-    }
-
-    public String getUploadedAt() {
-        return uploadedAt;
-    }
-
-    public void setUploadedAt(String uploadedAt) {
-        this.uploadedAt = uploadedAt;
-    }
-
-    public Boolean getArchived() {
-        return Archived;
-    }
-
-    public void setArchived(Boolean archived) {
-        Archived = archived;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "datasetId")
+    private Set<OrderItem> orderItems;
 }

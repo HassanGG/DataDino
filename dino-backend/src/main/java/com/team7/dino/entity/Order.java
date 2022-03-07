@@ -1,66 +1,44 @@
 package com.team7.dino.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
 public class Order {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, unique = true)
-    private UUID id;
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @GeneratedValue(generator = "UUID")
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(columnDefinition = "char(36)")
+    private UUID orderId;
+
+    @ManyToOne()
+    @JoinColumn(nullable = false)
     private User userId;
-    @Column(name = "state", nullable = false, length = 8)
-    String state;
-    @Column(name = "total", nullable = false)
+
+    @Column(nullable = false, length = 8)
+    private String state;
+
+    @Column(nullable = false)
     private int total;
-    @Column(name = "purchased_at", nullable = false, length = 50)
+
+    @Column(nullable = false, length = 50)
     private String purchasedAt;
 
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public String getPurchasedAt() {
-        return purchasedAt;
-    }
-
-    public void setPurchasedAt(String purchasedAt) {
-        this.purchasedAt = purchasedAt;
-    }
-
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return userId;
-    }
-
-    public void setUser(User user) {
-        this.userId = user;
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderId")
+    private Set<OrderItem> orderItems;
 }
-
