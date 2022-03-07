@@ -5,6 +5,7 @@ import { DatasetService } from "common/services/dataset.service"
 import { useQuery } from "react-query"
 import { Dataset } from "common/data/dataset"
 import QueryComponent from "common/components/query-component"
+import { Link } from "react-router-dom"
 
 export const LandingPage = () => {
   const query = useQuery("new-datasets", DatasetService.getAll)
@@ -15,9 +16,29 @@ export const LandingPage = () => {
 
     return (
       <>
-        {newestDatasets.map(dataset => (
-          <DatasetCard key={dataset.id} dataset={dataset} />
-        ))}
+        <div>
+          <div className="d-flex justify-content-between align-items-center">
+            <p className="h4 mb-3">
+              New
+              <small className="text-muted ms-2">
+                <i className="bi bi-stars" />
+              </small>
+            </p>
+            <Link to={"/datasets"} className="text-decoration-none text-dark">
+              <p className="h6 mb-3">
+                See all
+                <small className="text-muted ms-2">
+                  <i className="bi bi-arrow-right" />
+                </small>
+              </p>
+            </Link>
+          </div>
+          <div className="d-flex gap-3 overflow-auto">
+            {newestDatasets.map(dataset => (
+              <DatasetCard key={dataset.id} dataset={dataset} />
+            ))}
+          </div>
+        </div>
       </>
     )
   }
