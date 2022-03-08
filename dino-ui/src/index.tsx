@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals"
 import "bootstrap/dist/css/bootstrap.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
+import { UserContextProvider } from "shared/userContext"
 
 const queryClient = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <UserContextProvider>
+        <App />
+      </UserContextProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>,
