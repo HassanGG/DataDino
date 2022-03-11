@@ -15,10 +15,10 @@ import {
   Label,
 } from "recharts"
 import aveta from "aveta"
-
-type PriceData = { quantity: number; price: number }
+import { useState } from "react"
 
 export const DatasetPage = () => {
+  const [datapointCount, setDatapointCount] = useState(1)
   const { datasetId } = useParams() as { datasetId: string }
 
   const query = useQuery(`dataset-${datasetId}`, () =>
@@ -34,7 +34,6 @@ export const DatasetPage = () => {
       return {
         percentage,
         price,
-        priceLabel: aveta(price),
       }
     })
 
@@ -49,6 +48,17 @@ export const DatasetPage = () => {
               </small>
             </p>
             <p className="card-text mt-4">{dataset.description}</p>
+            <h4 className="mt-5">
+              How many datapoints would you like?
+              <small className="text-muted ms-2">{datapointCount}</small>
+            </h4>
+            <input
+              type="range"
+              className="form-range"
+              min="1"
+              max={dataset.datapointCount}
+              onInputCapture={e => setDatapointCount((e.target as any).value)}
+            ></input>
           </div>
           <div className="col-md-5 card-body ml-4">
             <BarChart width={350} height={400} data={graphData}>
