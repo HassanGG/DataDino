@@ -1,5 +1,3 @@
-import { OrderItem } from "./order"
-
 export interface User {
   id: string
   displayName?: string

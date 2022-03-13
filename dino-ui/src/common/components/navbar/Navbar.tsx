@@ -6,6 +6,7 @@ import NavbarItem from "./navbar-item"
 import { Link } from "react-router-dom"
 import { useContext } from "react"
 import { UserContext } from "shared/userContext"
+import { getUserNavbarItemName } from "./Navbar.helper"
 
 export const Navbar = ({ large }: { large?: boolean }) => {
   const leftStyle = useStyle({
@@ -25,8 +26,8 @@ export const Navbar = ({ large }: { large?: boolean }) => {
   })
 
   const { user } = useContext(UserContext)
-  const link = user ? "/profile" : "/login"
-  const text = user ? "PROFILE" : "LOGIN"
+  const text = getUserNavbarItemName(user)
+  const link = `/${text.toLowerCase()}`
 
   return (
     <nav className={navStyle}>
@@ -47,7 +48,6 @@ export const Navbar = ({ large }: { large?: boolean }) => {
           <NavbarItem text="DEMO" link="/demo" />
         </div>
         <div className={rightStyle}>
-          {user?.isOwner && <NavbarItem text="ADMIN" link="/admin" />}
           <NavbarItem text={text} link={link} />
           <NavbarItem text="BROWSE" link="/datasets" />
         </div>
