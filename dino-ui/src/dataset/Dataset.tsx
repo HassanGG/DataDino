@@ -15,13 +15,19 @@ import {
   Label,
 } from "recharts"
 import aveta from "aveta"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { CartContext } from "common/contexts/cart.context"
 
 export const DatasetPage = () => {
-  const [datapointCount, setDatapointCount] = useState(1)
   const { datasetId } = useParams() as { datasetId: string }
+  const { cart, setCart } = useContext(CartContext)
+  const cartItem = cart?.find(item => item.datasetId === datasetId)
+  const alreadyInCart = Boolean(cartItem)
+  const [datapointCount, setDatapointCount] = useState(
+    cartItem ? cartItem.datapointCount : 1,
+  )
 
-  const query = useQuery(`dataset-${datasetId}`, () =>
+  const query = useQuery(["dataset", datasetId], () =>
     DatasetService.get({ id: datasetId }),
   )
 
@@ -36,6 +42,23 @@ export const DatasetPage = () => {
         price,
       }
     })
+
+    const addToCart = () => {
+      const oldCart = (cart ?? []).filter(item => item.datasetId !== datasetId)
+      const newCart = [
+        ...oldCart,
+        {
+          datasetId,
+          datapointCount,
+        },
+      ]
+      setCart(newCart)
+    }
+
+    const removeFromCart = () => {
+      const newCart = (cart ?? []).filter(item => item.datasetId !== datasetId)
+      setCart(newCart)
+    }
 
     return (
       <>
@@ -57,8 +80,21 @@ export const DatasetPage = () => {
               className="form-range"
               min="1"
               max={dataset.datapointCount}
+              defaultValue={datapointCount}
               onInputCapture={e => setDatapointCount((e.target as any).value)}
             ></input>
+            <button type="button" className="btn btn-light" onClick={addToCart}>
+              {alreadyInCart ? "Update cart" : "Add to cart"}
+            </button>
+            {alreadyInCart && (
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={removeFromCart}
+              >
+                Remove from cart
+              </button>
+            )}
           </div>
           <div className="col-md-5 card-body ml-4">
             <BarChart width={350} height={400} data={graphData}>
@@ -87,7 +123,7 @@ export const DatasetPage = () => {
 
   return (
     <>
-      <Page>
+      <Page showBar>
         <QueryComponent query={query} onData={onData} />
       </Page>
     </>

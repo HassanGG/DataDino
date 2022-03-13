@@ -6,3 +6,12 @@
   width: 1em;
   font-size: 18px;
 }
+
+.cartSizeIndicator {
+  width: 18px;
+  font-size: 12px;
+  top: -6px;
+  left: -6px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}

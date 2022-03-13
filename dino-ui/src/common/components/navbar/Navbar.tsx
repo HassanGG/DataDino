@@ -4,8 +4,8 @@ import { useStyle } from "common/utils/css"
 import style from "./Navbar.module.css"
 import NavbarItem from "./navbar-item"
 import { Link } from "react-router-dom"
+import { UserContext } from "common/contexts/user.context"
 import { useContext } from "react"
-import { UserContext } from "shared/userContext"
 import { getUserNavbarItemName } from "./Navbar.helper"
 
 export const Navbar = ({ large }: { large?: boolean }) => {

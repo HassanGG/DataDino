@@ -21,6 +21,7 @@
     "react-query": "^3.34.16",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-use-storage": "^0.5.1",
     "recharts": "^2.1.9",
     "timeago.js": "^4.0.0-beta.3",
     "truncate": "^3.0.0",
