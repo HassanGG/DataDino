@@ -3,13 +3,13 @@ import Page from "common/components/page"
 import moment from "moment"
 import { DatasetService } from "common/services/dataset.service"
 import { useQuery } from "react-query"
-import { Dataset } from "common/data/dataset"
+import { DatasetMeta } from "common/data/dataset"
 import QueryComponent from "common/components/query-component"
 import { Link } from "react-router-dom"
 
 export const LandingPage = () => {
   const query = useQuery("new-datasets", DatasetService.getAll)
-  const onData = (datasets: Dataset[]) => {
+  const onData = (datasets: DatasetMeta[]) => {
     const newestDatasets = datasets
       .sort((a, b) => moment(b.uploadedAt).diff(moment(a.uploadedAt)))
       .slice(0, 10)

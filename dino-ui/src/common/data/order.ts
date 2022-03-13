@@ -13,7 +13,7 @@ export interface OrderItem {
 }
 
 export enum OrderState {
-  Complete = "Complete",
-  Error = "Error",
-  Refunded = "Refunded",
+  New = "New",
+  Cancelled = "Cancelled",
+  Delivered = "Delivered",
 }
