@@ -1,4 +1,4 @@
-import { Dataset } from "common/data/dataset"
+import { DatasetMeta } from "common/data/dataset"
 import { useStyle } from "common/utils/css"
 import style from "./DatasetCard.module.css"
 import { NavLink } from "react-router-dom"
@@ -6,7 +6,7 @@ import { format } from "timeago.js"
 import aveta from "aveta"
 import truncate from "truncate"
 
-export const DatasetCard = ({ dataset }: { dataset: Dataset }) => {
+export const DatasetCard = ({ dataset }: { dataset: DatasetMeta }) => {
   const _style = useStyle({
     [style.card]: true,
     "card mb-3": true,

@@ -2,7 +2,7 @@ import Page from "common/components/page"
 import { DatasetService } from "common/services/dataset.service"
 import { useQuery } from "react-query"
 import QueryComponent from "common/components/query-component"
-import { Dataset } from "common/data/dataset"
+import { DatasetMeta } from "common/data/dataset"
 import { useParams } from "react-router-dom"
 import { format } from "timeago.js"
 import {
@@ -22,10 +22,10 @@ export const DatasetPage = () => {
   const { datasetId } = useParams() as { datasetId: string }
 
   const query = useQuery(`dataset-${datasetId}`, () =>
-    DatasetService.get({ id: datasetId })
+    DatasetService.get({ id: datasetId }),
   )
 
-  const onData = (dataset: Dataset) => {
+  const onData = (dataset: DatasetMeta) => {
     const graphData = Array.from(Array(11).keys()).map(base => {
       const percentage = base / 10
       const quantity = Math.round(dataset.datapointCount * percentage)

@@ -6,21 +6,18 @@ const baseUrl = "dino-backend"
 
 export const UserService = new (class {
   async signUp({
-  displayName,
-  email,
-  password,
-  cartItem,
+    displayName,
+    email,
+    password,
   }: {
     displayName?: string
     email: string
     password: string
-    cartItem: OrderItem[]
   }): Promise<string | undefined> {
     const body = JSON.stringify({
       displayName,
       email,
       password,
-      cartItem
     })
     const init: RequestInit = {
       method: "post",
@@ -31,14 +28,14 @@ export const UserService = new (class {
 
   async login({
     email,
-    password
+    password,
   }: {
-    email: string,
+    email: string
     password: string
   }): Promise<User | undefined> {
     const body = JSON.stringify({
       email,
-      password
+      password,
     })
     const init: RequestInit = {
       method: "post",
@@ -46,5 +43,4 @@ export const UserService = new (class {
     }
     return fetchJson(`${baseUrl}/login`, init)
   }
-
 })()

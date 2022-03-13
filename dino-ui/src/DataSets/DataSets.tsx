@@ -3,20 +3,20 @@ import Page from "common/components/page"
 import { DatasetService } from "common/services/dataset.service"
 import { useQuery } from "react-query"
 import QueryComponent from "common/components/query-component"
-import { Dataset } from "common/data/dataset"
+import { DatasetMeta } from "common/data/dataset"
 import React, { useState } from "react"
 import debounce from "lodash.debounce"
 
 export const DatasetsPage = () => {
   const [input, setInput] = useState("")
   const query = useQuery("datasets", DatasetService.getAll)
-  const onData = (datasets: Dataset[]) => {
+  const onData = (datasets: DatasetMeta[]) => {
     const filteredDatasets = datasets.filter(({ name }) =>
-      name.toLowerCase().includes(input.toLowerCase())
+      name.toLowerCase().includes(input.toLowerCase()),
     )
     const debouncedSetInput = debounce(
       (event: any) => setInput(event.target.value),
-      1200
+      1200,
     )
     return (
       <>

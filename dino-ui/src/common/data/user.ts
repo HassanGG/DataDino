@@ -5,5 +5,4 @@ export interface User {
   displayName?: string
   email: string
   isOwner: boolean
-  cart?: OrderItem[]
 }

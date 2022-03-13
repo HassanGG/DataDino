@@ -1,40 +1,43 @@
 import { fetchJson } from "common/utils/fetch-json"
-import { Dataset } from "common/data/dataset"
+import { DatasetMeta } from "common/data/dataset"
 
 const baseUrl = "http://localhost:3000/datasets"
 
 export const DatasetService = new (class {
-  async getAll(): Promise<Dataset[]> {
-    return await fetchJson(baseUrl)
+  async getAll(): Promise<DatasetMeta[]> {
+    return fetchJson(baseUrl)
   }
 
-  async get({ id }: { id: string }): Promise<Dataset> {
-    return await fetchJson(`${baseUrl}/${id}`)
+  async get({ id }: { id: string }): Promise<DatasetMeta> {
+    return fetchJson(`${baseUrl}/${id}`)
   }
 
   async post({
     name,
     description,
     datapointPrice,
-    datapointCount,
+    archived,
+    file,
   }: {
     name: string
     description?: string
     datapointPrice: number
-    datapointCount: number
+    archived?: boolean
+    file: Blob
   }): Promise<string | undefined> {
     const body = JSON.stringify({
       name,
       description,
       datapointPrice,
-      datapointCount,
+      archived,
+      file,
     })
     const init: RequestInit = {
       method: "post",
       body,
     }
 
-    return await fetchJson(baseUrl, init)
+    return fetchJson(baseUrl, init)
   }
 
   async patch({
@@ -42,25 +45,35 @@ export const DatasetService = new (class {
     name,
     description,
     datapointPrice,
-    datapointCount,
+    file,
   }: {
     id: string
     name?: string
     description?: string
     datapointPrice?: number
-    datapointCount?: number
+    file?: Blob
   }): Promise<void> {
     const body = JSON.stringify({
       name,
       description,
       datapointPrice,
-      datapointCount,
+      file,
     })
     const init: RequestInit = {
       method: "patch",
       body,
     }
 
-    await fetchJson(`${baseUrl}/${id}`, init)
+    return fetchJson(`${baseUrl}/${id}`, init)
+  }
+
+  async getDatapoints({
+    id,
+    datapointCount,
+  }: {
+    id: string
+    datapointCount: number
+  }): Promise<Array<number>> {
+    return fetchJson(`${baseUrl}/${id}/data?datapointCount=${datapointCount}`)
   }
 })()
