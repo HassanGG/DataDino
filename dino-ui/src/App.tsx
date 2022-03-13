@@ -7,12 +7,31 @@ import DatasetPage from "dataset"
 import DocsPage from "docs"
 import DemoPage from "demo"
 import LoginPage from "login"
+import ProfilePage from "profile"
+import AdminPage from "admin"
+import { UserContext } from "shared/userContext"
+import { useContext } from "react"
+import { getUserNavbarItemName, UserNavbarItemName } from "common/components/navbar/Navbar.helper"
 
 if (process.env.REACT_APP_MOCKING === "enabled") {
   import("mocks")
 }
 
 const App = () => {
+  const { user } = useContext(UserContext)
+  const profileText = getUserNavbarItemName(user)
+
+  const profileElement = (() => {
+    switch (profileText) {
+      case UserNavbarItemName.Login:
+        return <LoginPage />
+      case UserNavbarItemName.Admin:
+        return <AdminPage />
+      default:
+        return <ProfilePage />
+    }
+  })()
+  
   return (
     <Router>
       <Routes>
@@ -21,7 +40,7 @@ const App = () => {
         <Route path="/datasets/:datasetId" element={<DatasetPage />} />
         <Route path="/docs" element={<DocsPage />} />
         <Route path="/demo" element={<DemoPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path={`/${profileText.toLowerCase()}`} element={profileElement}/>
       </Routes>
     </Router>
   )

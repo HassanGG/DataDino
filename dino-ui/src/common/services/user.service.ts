@@ -1,4 +1,3 @@
-import { OrderItem } from "common/data/order"
 import { User } from "common/data/user"
 import { fetchJson } from "common/utils/fetch-json"
 
