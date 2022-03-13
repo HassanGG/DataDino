@@ -17,3 +17,5 @@ export enum OrderState {
   Cancelled = "Cancelled",
   Delivered = "Delivered",
 }
+
+export type Cart = OrderItem[]

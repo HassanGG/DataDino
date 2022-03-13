@@ -14,5 +14,5 @@ export const QueryComponent = <T,>({
   if (isError) return <Error text={`${error}`} />
   if (isSuccess && data) return onData(data)
 
-  return <p>This should never be seen lol</p>
+  return <p>An unexpected error occurred...</p>
 }

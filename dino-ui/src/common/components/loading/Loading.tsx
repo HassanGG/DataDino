@@ -9,7 +9,7 @@ export const Loading = () => {
 
   return (
     <>
-      <div className="d-flex flex-column align-items-center justify-content-center">
+      <div className="d-flex flex-column align-items-center justify-content-center m-3">
         <div className={_style} role="status">
           <span className="visually-hidden">Loading...</span>
         </div>

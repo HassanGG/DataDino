@@ -73,7 +73,7 @@ export const DatasetService = new (class {
   }: {
     id: string
     datapointCount: number
-  }): Promise<Array<number>> {
+  }): Promise<number[]> {
     return fetchJson(`${baseUrl}/${id}/data?datapointCount=${datapointCount}`)
   }
 })()

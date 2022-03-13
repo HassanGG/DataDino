@@ -3,6 +3,8 @@ import Navbar from "common/components/navbar"
 import { useStyle } from "common/utils/css"
 import { useNavigate } from "react-router-dom"
 import style from "./Page.module.css"
+import { CartContext } from "common/contexts/cart.context"
+import { useContext } from "react"
 
 type Slot = undefined | JSX.Element | JSX.Element[] | string
 
@@ -31,11 +33,17 @@ export const Page = ({
     [iconStyle]: true,
     "bi-cart": true,
   })
+  const cartSizeIndicatorStyle = useStyle({
+    [style.cartSizeIndicator]: true,
+    "position-absolute rounded-circle": true,
+  })
 
   const navigate = useNavigate()
 
   const back = () => navigate(-1)
-  const toCart = () => navigate("./cart")
+  const toCart = () => navigate("/datasets/cart")
+
+  const { cart } = useContext(CartContext)
 
   return (
     <>
@@ -48,8 +56,11 @@ export const Page = ({
               <i className={backIconStyle}></i>
             </div>
 
-            <div className="btn btn-light" onClick={toCart}>
+            <div className="btn btn-light position-relative" onClick={toCart}>
               <i className={cartIconStyle}></i>
+              {Boolean(cart?.length) && (
+                <p className={cartSizeIndicatorStyle}>{cart?.length}</p>
+              )}
             </div>
           </div>
         )}

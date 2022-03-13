@@ -6,7 +6,8 @@ import reportWebVitals from "./reportWebVitals"
 import "bootstrap/dist/css/bootstrap.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
-import { UserContextProvider } from "shared/userContext"
+import { UserContextProvider } from "common/contexts/user.context"
+import { CartContextProvider } from "common/contexts/cart.context"
 
 const queryClient = new QueryClient()
 
@@ -14,12 +15,14 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <UserContextProvider>
-        <App />
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
       </UserContextProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 )
 
 // If you want to start measuring performance in your app, pass a function
