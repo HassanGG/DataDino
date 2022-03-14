@@ -44,14 +44,27 @@ export const DatasetPage = () => {
     })
 
     const addToCart = () => {
-      const oldCart = (cart ?? []).filter(item => item.datasetId !== datasetId)
       const newCart = [
-        ...oldCart,
+        ...(cart ?? []),
         {
           datasetId,
           datapointCount,
         },
       ]
+
+      setCart(newCart)
+    }
+
+    const updateCart = (datapointCount: number) => {
+      const newCart = (cart ?? []).map(item =>
+        item.datasetId === datasetId
+          ? {
+              datasetId,
+              datapointCount,
+            }
+          : item,
+      )
+
       setCart(newCart)
     }
 
@@ -70,29 +83,38 @@ export const DatasetPage = () => {
                 Uploaded {format(dataset.uploadedAt)}
               </small>
             </p>
-            <p className="card-text mt-4">{dataset.description}</p>
-            <h4 className="mt-5">
+            <p className="card-text mt-4 mb-5">{dataset.description}</p>
+            <small className="h6 text-muted">
               How many datapoints would you like?
-              <small className="text-muted ms-2">{datapointCount}</small>
-            </h4>
+            </small>
+            <div className="h3">{datapointCount}</div>
             <input
               type="range"
               className="form-range"
               min="1"
               max={dataset.datapointCount}
               defaultValue={datapointCount}
-              onInputCapture={e => setDatapointCount((e.target as any).value)}
+              onInputCapture={e => {
+                const value = (e.target as any).value
+                setDatapointCount(value)
+                updateCart(value)
+              }}
             ></input>
-            <button type="button" className="btn btn-light" onClick={addToCart}>
-              {alreadyInCart ? "Update cart" : "Add to cart"}
-            </button>
-            {alreadyInCart && (
+            {alreadyInCart ? (
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-dark"
                 onClick={removeFromCart}
               >
-                Remove from cart
+                Remove
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-dark"
+                onClick={addToCart}
+              >
+                Add to cart
               </button>
             )}
           </div>
