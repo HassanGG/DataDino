@@ -1,12 +1,14 @@
+import { Link, useNavigate } from "react-router-dom"
+import FormCard from "common/components/form-card"
+import { Field, Form, Formik } from "formik"
+import { UserService } from "common/services/user.service"
+import { useContext } from "react"
+import { UserContext } from "common/contexts/user.context"
 import style from "./Login.module.css"
 import { useStyle } from "common/utils/css"
-import { Link, useNavigate } from "react-router-dom"
-import { UserContext } from "common/contexts/user.context"
-import { UserService } from "common/services/user.service"
-import { Formik, Form, Field } from "formik"
-import { useContext } from "react"
-import { LogInFormType } from "./Login.types"
-import FormCard from "common/components/form-card"
+import { LoginForm } from "./Login.types"
+import Logo from "common/components/logo"
+import Label from "common/components/label"
 
 export const LoginPage = () => {
   const { setUser } = useContext(UserContext)
@@ -18,33 +20,30 @@ export const LoginPage = () => {
     password: "",
   }
 
-  const onSubmit = async (values: LogInFormType) => {
-    const successful = await UserService.signUp({ ...values })
+  const onSubmit = async (values: LoginForm) => {
+    const { email, password } = values
+    const user = await UserService.login({ email, password })
+    if (!user) return // TODO: handle failed login
 
-    if (successful) {
-      const { email, password } = values
-      const user = await UserService.login({ email, password })
-      setUser(user)
-      return navigate("/")
-    } else {
-      // Throw an error
-    }
+    setUser(user)
+    navigate("/")
   }
 
   const _style = useStyle({
     [style.login]: true,
   })
 
-  const _btnStyle = useStyle({
-    [style.btn]: true,
-    "mt-5": true,
+  const _labelStyle = useStyle({
+    [style.label]: true,
+    "mb-4": true,
   })
 
   return (
     <>
       <div className={_style}>
         <FormCard>
-          <h1 className="mb-5">Sign In</h1>
+          <Logo medium />
+          <Label title text="WELCOME BACK" className={_labelStyle} />
           <Formik initialValues={initialValues} onSubmit={onSubmit}>
             <Form className=" d-flex flex-column align-items-center justify-content-around w-100">
               <div className="form-group mt-3 w-100">
@@ -52,7 +51,7 @@ export const LoginPage = () => {
                   className="form-control"
                   type="email"
                   name="email"
-                  placeholder="email"
+                  placeholder="Email"
                   required
                 />
               </div>
@@ -61,12 +60,12 @@ export const LoginPage = () => {
                   className="form-control"
                   type="password"
                   name="password"
-                  placeholder="password"
+                  placeholder="Password"
                   required
                 />
               </div>
-              <button className={_btnStyle} type="submit">
-                LOGIN
+              <button type="submit" className="btn btn-outline-dark mt-4 mb-3">
+                Sign in
               </button>
             </Form>
           </Formik>

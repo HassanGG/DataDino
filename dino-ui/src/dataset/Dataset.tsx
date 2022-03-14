@@ -16,12 +16,12 @@ import {
 } from "recharts"
 import aveta from "aveta"
 import { useState, useContext } from "react"
-import { CartContext } from "common/contexts/cart.context"
+import { UserContext } from "common/contexts/user.context"
 
 export const DatasetPage = () => {
   const { datasetId } = useParams() as { datasetId: string }
-  const { cart, setCart } = useContext(CartContext)
-  const cartItem = cart?.find(item => item.datasetId === datasetId)
+  const { cart, setCart } = useContext(UserContext)
+  const cartItem = cart.find(item => item.datasetId === datasetId)
   const alreadyInCart = Boolean(cartItem)
   const [datapointCount, setDatapointCount] = useState(
     cartItem ? cartItem.datapointCount : 1,
@@ -45,7 +45,7 @@ export const DatasetPage = () => {
 
     const addToCart = () => {
       const newCart = [
-        ...(cart ?? []),
+        ...cart,
         {
           datasetId,
           datapointCount,
@@ -56,7 +56,7 @@ export const DatasetPage = () => {
     }
 
     const updateCart = (datapointCount: number) => {
-      const newCart = (cart ?? []).map(item =>
+      const newCart = cart.map(item =>
         item.datasetId === datasetId
           ? {
               datasetId,
@@ -69,7 +69,7 @@ export const DatasetPage = () => {
     }
 
     const removeFromCart = () => {
-      const newCart = (cart ?? []).filter(item => item.datasetId !== datasetId)
+      const newCart = cart.filter(item => item.datasetId !== datasetId)
       setCart(newCart)
     }
 

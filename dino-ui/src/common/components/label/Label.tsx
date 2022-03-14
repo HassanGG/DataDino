@@ -20,6 +20,7 @@ export const Label = ({
   h5,
   h6,
   inline,
+  className,
 }: {
   text: string
   fontSize?: number
@@ -34,9 +35,11 @@ export const Label = ({
   h5?: boolean
   h6?: boolean
   inline?: boolean
+  className?: string
 }) => {
   const _style = useStyle({
     [style.label]: true,
+    [className ?? ""]: true,
     [style.title]: title,
     [style.bold]: bold,
     [style.italic]: italic,

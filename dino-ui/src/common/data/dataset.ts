@@ -6,6 +6,6 @@ export interface DatasetMeta {
   datapointCount: number
   datapointMax: number
   datapointMin: number
-  uploadedAt: string
+  uploadedAt: number
   archived: boolean
 }

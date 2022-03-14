@@ -1,10 +1,7 @@
 .card {
-  background-color: var(--primary-color);
+  background-color: var(--navbar-color);
   border-radius: 5px;
-  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.6);
-  padding: 10px 20px;
-  min-height: 450px;
-  color: white;
-  min-width: 400px;
+  padding: 30px 20px;
   max-width: 400px;
+  height: 530px;
 }

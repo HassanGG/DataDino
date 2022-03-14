@@ -2,32 +2,7 @@
   height: 100vh;
 }
 
-.card {
-  background-color: var(--primary-color);
-  border-radius: 5px;
-  box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.6);
-  padding: 10px 20px;
-  min-height: 450px;
-  color: white
-}
-
-.link {
-  color: var(--navbar-color);
-}
-
-.link:hover {
-  color: rgb(220, 238, 220);
-}
-
-.btn {
-  border: 1px solid white;
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 5px;
-  padding: 8px 16px;
-}
-
-.btn:hover {
-  background-color: white;
-  color: var(--primary-color);
+.label {
+  font-size: 4vw;
+  white-space: nowrap;
 }

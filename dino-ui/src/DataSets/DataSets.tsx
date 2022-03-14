@@ -40,7 +40,7 @@ export const DatasetsPage = () => {
             aria-describedby="addon-wrapping"
           />
         </div>
-        <div className="d-flex flex-wrap gy-2" style={{ columnGap: "30px" }}>
+        <div className="d-flex flex-wrap gy-2 justify-content-around">
           {filteredDatasets.length === 0 ? (
             <div className="h3">No datasets found!</div>
           ) : (

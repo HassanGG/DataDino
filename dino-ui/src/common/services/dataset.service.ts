@@ -1,7 +1,7 @@
 import { fetchJson } from "common/utils/fetch-json"
 import { DatasetMeta } from "common/data/dataset"
 
-const baseUrl = "http://localhost:3000/datasets"
+const baseUrl = "http://localhost:3000/dino-backend/datasets"
 
 export const DatasetService = new (class {
   async getAll(): Promise<DatasetMeta[]> {
@@ -16,12 +16,14 @@ export const DatasetService = new (class {
     name,
     description,
     datapointPrice,
+    uploadedAt,
     archived,
     file,
   }: {
     name: string
     description?: string
     datapointPrice: number
+    uploadedAt: number
     archived?: boolean
     file: Blob
   }): Promise<string | undefined> {
@@ -29,6 +31,7 @@ export const DatasetService = new (class {
       name,
       description,
       datapointPrice,
+      uploadedAt,
       archived,
       file,
     })
