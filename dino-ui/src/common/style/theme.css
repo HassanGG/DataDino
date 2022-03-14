@@ -3,3 +3,15 @@
   --secondary-color: aliceblue;
   --navbar-color: rgba(171, 213, 171);
 }
+
+/* 
+This is a pain, but it is the quickest and easiest
+way for all inputs to be styled.
+
+If we were using SCSS, we could set a variable to 
+customise the colors. 
+*/
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: var(--primary-color) !important;
+}
