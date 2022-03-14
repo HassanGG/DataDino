@@ -24,27 +24,30 @@ public class DatasetController {
         return repository.findAll();
     }
 
-    @RequestMapping(value="/dino-backend/datasets{id}", method=GET)
+    @RequestMapping(value="/dino-backend/datasets/{id}", method=GET)
     @ResponseBody
     private Optional<Dataset> getDatasetById(@PathVariable String id) {
-        id = id.substring(1, id.length() - 1);
         return repository.findById(UUID.fromString(id));
     }
 
+    // TODO: error checking
+    // TODO: set time
     @PostMapping("/dino-backend/datasets")
     @ResponseBody
     private void saveDataset(@RequestBody Dataset dataset) {
         repository.save(dataset);
     }
 
-    //TODO: change getDataset
-//    @PatchMapping("/dino-backend/datasets")
-//    @ResponseBody
-//    private void patchDataset(@RequestBody Dataset dataset) {
-//        if(repository.existsById(dataset.getDatasetId())) {
-//            repository.deleteById(dataset.getDatasetId());
-//        }
-//        repository.save(dataset);
-//    }
+    // TODO: error checking
+    //TODO: change datasetID
+    //TODO: partial object parameter patching
+    @PatchMapping("/dino-backend/datasets")
+    @ResponseBody
+    private void patchDataset(@RequestBody Dataset dataset) {
+        if(repository.existsById(dataset.getDatasetId())) {
+            repository.deleteById(dataset.getDatasetId());
+        }
+        repository.save(dataset);
+    }
 
 }

@@ -34,9 +34,10 @@ public class User {
     @Column(nullable = false)
     private Boolean isAdmin;
 
+    @Column
+    private String password;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
     private Set<Order> orders;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
-    private Set<CartItem> cartItems;
 }
