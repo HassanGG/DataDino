@@ -16,6 +16,7 @@ import {
   getUserNavbarItemName,
   UserNavbarItemName,
 } from "common/components/navbar/Navbar.helper"
+import SignUpPage from "signup"
 
 if (process.env.REACT_APP_MOCKING === "enabled") {
   import("mocks")
@@ -49,6 +50,7 @@ const App = () => {
           path={`/${profileText.toLowerCase()}`}
           element={profileElement}
         />
+        {!user && <Route path="/signup" element={<SignUpPage />} />}
       </Routes>
     </Router>
   )
