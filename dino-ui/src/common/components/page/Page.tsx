@@ -3,8 +3,8 @@ import Navbar from "common/components/navbar"
 import { useStyle } from "common/utils/css"
 import { useNavigate } from "react-router-dom"
 import style from "./Page.module.css"
-import { CartContext } from "common/contexts/cart.context"
 import { useContext } from "react"
+import { UserContext } from "common/contexts/user.context"
 
 type Slot = undefined | JSX.Element | JSX.Element[] | string
 
@@ -43,7 +43,7 @@ export const Page = ({
   const back = () => navigate(-1)
   const toCart = () => navigate("/datasets/cart")
 
-  const { cart } = useContext(CartContext)
+  const { cart } = useContext(UserContext)
 
   return (
     <>
@@ -58,8 +58,8 @@ export const Page = ({
 
             <div className="btn btn-light position-relative" onClick={toCart}>
               <i className={cartIconStyle}></i>
-              {Boolean(cart?.length) && (
-                <p className={cartSizeIndicatorStyle}>{cart?.length}</p>
+              {Boolean(cart.length) && (
+                <p className={cartSizeIndicatorStyle}>{cart.length}</p>
               )}
             </div>
           </div>

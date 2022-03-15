@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import LandingPage from "landing"
 import DatasetsPage from "datasets"
 import CartPage from "datasets/cart"
+import CheckoutPage from "datasets/checkout"
 import DatasetPage from "dataset"
 import DocsPage from "docs"
 import DemoPage from "demo"
@@ -44,6 +45,7 @@ const App = () => {
         <Route path="/datasets" element={<DatasetsPage />} />
         <Route path="/datasets/:datasetId" element={<DatasetPage />} />
         <Route path="/datasets/cart" element={<CartPage />} />
+        <Route path="/datasets/checkout" element={<CheckoutPage />} />
         <Route path="/docs" element={<DocsPage />} />
         <Route path="/demo" element={<DemoPage />} />
         <Route

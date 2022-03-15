@@ -1,18 +1,19 @@
 import Page from "common/components/page"
 import { DatasetService } from "common/services/dataset.service"
-import QueryComponent from "common/components/query-component"
 import QueriesComponent from "common/components/queries-component"
-import { CartContext } from "common/contexts/cart.context"
+
 import { DatasetMeta } from "common/data/dataset"
 import DatasetCard from "common/components/dataset-card"
-import { useStyle } from "common/utils/css"
 import { useContext } from "react"
 import { useQueries } from "react-query"
+import { useNavigate } from "react-router-dom"
+import { UserContext } from "common/contexts/user.context"
 
 export const CartPage = () => {
-  const { cart, setCart } = useContext(CartContext)
+  const navigate = useNavigate()
+  const { cart, setCart } = useContext(UserContext)
   const datasetQueries = useQueries(
-    (cart ?? []).map(({ datasetId }) => {
+    cart.map(({ datasetId }) => {
       return {
         queryKey: ["dataset", datasetId],
         queryFn: () => DatasetService.get({ id: datasetId }),
@@ -24,7 +25,7 @@ export const CartPage = () => {
     { id: datasetId }: DatasetMeta,
     datapointCount: number,
   ) => {
-    const newCart = (cart ?? []).map(item =>
+    const newCart = cart.map(item =>
       item.datasetId === datasetId
         ? {
             datasetId,
@@ -37,13 +38,13 @@ export const CartPage = () => {
   }
 
   const removeFromCart = ({ id }: DatasetMeta) => {
-    const newCart = (cart ?? []).filter(item => item.datasetId !== id)
+    const newCart = cart.filter(item => item.datasetId !== id)
     setCart(newCart)
   }
 
   const onData = (datasets: DatasetMeta[]) => {
     const cartRows = datasets.map(dataset => {
-      const cartItem = cart?.find(({ datasetId }) => datasetId === dataset.id)
+      const cartItem = cart.find(({ datasetId }) => datasetId === dataset.id)
       if (!cartItem)
         return <div>Could not find cart item with dataset ID: {dataset.id}</div>
 
@@ -87,13 +88,13 @@ export const CartPage = () => {
 
     const totalPrice = datasets
       .reduce((acc, { id, datapointPrice }) => {
-        const cartItem = cart?.find(({ datasetId }) => datasetId === id)
+        const cartItem = cart.find(({ datasetId }) => datasetId === id)
         const datapointCount = cartItem?.datapointCount ?? 0
         return acc + datapointCount * datapointPrice
       }, 0)
       .toFixed(2)
 
-    const toCheckout = () => {}
+    const toCheckout = () => navigate("/datasets/checkout")
 
     return (
       <>

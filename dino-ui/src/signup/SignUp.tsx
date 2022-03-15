@@ -7,6 +7,8 @@ import { UserService } from "common/services/user.service"
 import { Formik, Form, Field } from "formik"
 import { useContext } from "react"
 import { SignUpFormTypes } from "./SignUp.types"
+import Logo from "common/components/logo"
+import Label from "common/components/label"
 
 export const SignUpPage = () => {
   const { setUser } = useContext(UserContext)
@@ -19,35 +21,35 @@ export const SignUpPage = () => {
   }
 
   const onSubmit = async (values: SignUpFormTypes) => {
-    const successful = await UserService.signUp({ ...values })
+    const userId = await UserService.signUp({ ...values })
+    if (!userId) throw "Failed to create user"
 
-    if (successful) {
-      const { email, password } = values
-      const user = await UserService.login({ email, password })
-      setUser(user)
-      return navigate("/")
-    } else {
-      // Throw an error
-    }
+    const { email, password } = values
+    const user = await UserService.login({ email, password })
+    if (!user) throw "Failed to login to new user account"
+
+    setUser(user)
+    navigate("/")
   }
 
-  const _btnStyle = useStyle({
-    [style.btn]: true,
-    "mt-5": true,
+  const _labelStyle = useStyle({
+    [style.label]: true,
+    "mb-4": true,
   })
 
   return (
     <>
       <div className={style.signup}>
         <FormCard>
-          <h1 className="mb-5">Sign Up</h1>
+          <Logo medium />
+          <Label title text="WELCOME USER" className={_labelStyle} />
           <Formik initialValues={initialValues} onSubmit={onSubmit}>
             <Form className=" d-flex flex-column align-items-center justify-content-around w-100">
               <div className="form-group mt-3 w-100">
                 <Field
                   className="form-control"
                   name="username"
-                  placeholder="display name"
+                  placeholder="Display name"
                   required
                 />
               </div>
@@ -56,7 +58,7 @@ export const SignUpPage = () => {
                   className="form-control"
                   type="email"
                   name="email"
-                  placeholder="email"
+                  placeholder="Email"
                   required
                 />
               </div>
@@ -65,21 +67,19 @@ export const SignUpPage = () => {
                   className="form-control"
                   type="password"
                   name="password"
-                  placeholder="password"
+                  placeholder="Password"
                   required
                 />
               </div>
-              <div className="form-group mt-3 d-flex flex-column justify-content-center align-items-center">
-                <button className={_btnStyle} type="submit">
-                  SIGN UP
-                </button>
-              </div>
+              <button type="submit" className="btn btn-outline-dark mt-4 mb-3">
+                Sign up
+              </button>
             </Form>
           </Formik>
           <div className="d-flex">
             <p>Already a member? &nbsp;</p>
             <Link className={style.link} to={"/login"}>
-              Log in now
+              Sign in now
             </Link>
           </div>
         </FormCard>

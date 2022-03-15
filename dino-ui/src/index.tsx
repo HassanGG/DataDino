@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { UserContextProvider } from "common/contexts/user.context"
-import { CartContextProvider } from "common/contexts/cart.context"
 
 const queryClient = new QueryClient()
 
@@ -15,9 +14,7 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <UserContextProvider>
-        <CartContextProvider>
-          <App />
-        </CartContextProvider>
+        <App />
       </UserContextProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>

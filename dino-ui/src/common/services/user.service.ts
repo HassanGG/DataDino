@@ -1,7 +1,7 @@
 import { User } from "common/data/user"
 import { fetchJson } from "common/utils/fetch-json"
 
-const baseUrl = "dino-backend"
+const baseUrl = "http://localhost:3000/dino-backend/users"
 
 export const UserService = new (class {
   async signUp({
@@ -22,7 +22,7 @@ export const UserService = new (class {
       method: "post",
       body,
     }
-    return fetchJson(`${baseUrl}/users`, init)
+    return fetchJson(baseUrl, init)
   }
 
   async login({
@@ -32,14 +32,6 @@ export const UserService = new (class {
     email: string
     password: string
   }): Promise<User | undefined> {
-    const body = JSON.stringify({
-      email,
-      password,
-    })
-    const init: RequestInit = {
-      method: "post",
-      body,
-    }
-    return fetchJson(`${baseUrl}/login`, init)
+    return fetchJson(`${baseUrl}/login?email=${email}&password=${password}`)
   }
 })()

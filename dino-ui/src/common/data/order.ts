@@ -4,7 +4,7 @@ export interface Order {
   state: OrderState
   items: OrderItem[]
   total: number
-  purchasedAt: string
+  purchasedAt: number
 }
 
 export interface OrderItem {
