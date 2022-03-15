@@ -78,9 +78,12 @@ export const DatasetPage = () => {
         <div className="row g-0">
           <div className="col-md-7 card-body">
             <h1 className="card-title">{dataset.name}</h1>
-            <p className="card-text">
+            <p className="card-text d-flex flex-column gap-1">
               <small className="text-muted">
                 Uploaded {format(dataset.uploadedAt)}
+              </small>
+              <small className="text-muted">
+                {dataset.datapointMin} &le; Values &le; {dataset.datapointMax}{" "}
               </small>
             </p>
             <p className="card-text mt-4 mb-5">{dataset.description}</p>
@@ -95,7 +98,7 @@ export const DatasetPage = () => {
               max={dataset.datapointCount}
               defaultValue={datapointCount}
               onInputCapture={e => {
-                const value = (e.target as any).value
+                const value = Number.parseInt((e.target as any).value)
                 setDatapointCount(value)
                 updateCart(value)
               }}

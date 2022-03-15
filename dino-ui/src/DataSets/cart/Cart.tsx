@@ -66,7 +66,7 @@ export const CartPage = () => {
                 max={dataset.datapointCount}
                 defaultValue={cartItem.datapointCount}
                 onInputCapture={e =>
-                  updateCart(dataset, (e.target as any).value)
+                  updateCart(dataset, Number.parseInt((e.target as any).value))
                 }
               ></input>
               <button
