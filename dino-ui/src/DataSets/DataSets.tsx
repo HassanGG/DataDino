@@ -4,7 +4,7 @@ import { DatasetService } from "common/services/dataset.service"
 import { useQuery } from "react-query"
 import QueryComponent from "common/components/query-component"
 import { DatasetMeta } from "common/data/dataset"
-import React, { useState } from "react"
+import { useState } from "react"
 import debounce from "lodash.debounce"
 
 export const DatasetsPage = () => {
