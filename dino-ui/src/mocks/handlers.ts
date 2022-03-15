@@ -1,12 +1,15 @@
 import { Order, OrderItem, OrderState } from "common/data/order"
 import { User } from "common/data/user"
 import { rest } from "msw"
-import datasetJson from "./mock-data/dataset.json"
+import { generateDataset } from "./generate-data"
 
 const delay = Math.floor(Math.random() * 400) + 200
 
 const datasets = Object.fromEntries(
-  datasetJson.map(dataset => [dataset.id, dataset]),
+  Array.from(Array(100)).map(() => {
+    const dataset = generateDataset()
+    return [dataset.id, dataset]
+  }),
 )
 
 type FullUser = User & { password: string }
