@@ -1,5 +1,6 @@
 package com.team7.dino.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.UUID;
 
 @Entity
@@ -15,23 +17,19 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cart_item")
-public class CartItem {
+@Table(name = "data")
+public class DataStore {
     @Id
     @GeneratedValue(generator = "UUID")
     @Type(type = "org.hibernate.type.UUIDCharType")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", columnDefinition = "char(36)")
-    private UUID ItemId;
+    @Column
+    private UUID id;
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "userId", nullable = false)
-    private User userId;
+    @Column(name = "dataset_id", unique = true)
+    private String datasetId;
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "datasetId", nullable = false)
-    private Dataset datasetId;
-
-    @Column(nullable = false)
-    private int datapointCount;
+    @Lob
+    @Column(name = "data")
+    private java.sql.Blob data;
 }
