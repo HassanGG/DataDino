@@ -1,5 +1,6 @@
 package com.team7.dino.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,27 +18,31 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @Type(type = "org.hibernate.type.UUIDCharType")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(columnDefinition = "char(36)")
+    @Column
     private UUID orderId;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private User userId;
+    @Column(name = "user_id", insertable = false, updatable = false)
+    private String userId;
 
-    @Column(nullable = false, length = 8)
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+
+    @Column(nullable = false, length = 9)
     private String state;
 
     @Column(nullable = false)
     private int total;
 
-    @Column(nullable = false, length = 50)
-    private String purchasedAt;
+    @Column(nullable = false)
+    private int purchasedAt;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderId")
     private Set<OrderItem> orderItems;

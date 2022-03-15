@@ -21,13 +21,20 @@ public class OrderItem {
     @Column(nullable = false, unique = true)
     private UUID orderItemId;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Order orderId;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Dataset datasetId;
+
+    @Column(name = "order_id", insertable = false, updatable = false)
+    private String orderId;
+    @Column(name = "dataset_id", insertable = false, updatable = false)
+    private String datasetId;
+
+//    @ManyToOne
+//    @JoinColumn(nullable = false)
+//    private Order orderId;
+
+//    @ManyToOne
+//    @JoinColumn(nullable = false)
+//    private Dataset datasetId;
 
     @Column(nullable = false)
     private int datapointCount;

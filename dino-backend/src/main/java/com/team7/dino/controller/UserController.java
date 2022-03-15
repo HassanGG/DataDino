@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,8 +17,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class UserController {
 
+
+    // TODO: do login get request
     @Autowired
     private UserRepository repository;
+
+//    @RequestMapping(value="/dino-backend/users/login", method=GET)
+//    @ResponseBody
+//    private boolean login(@PathVariable String id) {
+//        return repository.findById(UUID.fromString(id));
 
     @RequestMapping(value="/dino-backend/users/{id}", method=GET)
     @ResponseBody
@@ -32,4 +40,11 @@ public class UserController {
         repository.save(user);
     }
 
+
+    @RequestMapping(value = "/dino-backend/users", method = GET)
+    @ResponseBody
+    private List<User> getAllUsers() {
+//        System.out.println(repository.findAll());
+        return repository.findAll();
+    }
 }

@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface DatasetRepository extends JpaRepository<Dataset, UUID> {
-    public List<Dataset> findAllByDatasetId(UUID datasetId);
+    public List<Dataset> findAllById(UUID datasetId);
     public List<Dataset> findAllByArchivedFalse();
 }

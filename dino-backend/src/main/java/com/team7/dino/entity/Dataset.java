@@ -19,11 +19,11 @@ import java.util.UUID;
 @Table(name = "dataset")
 public class Dataset {
     @Id
-    @GeneratedValue(generator = "UUID")
+//    @GeneratedValue(generator = "UUID")
     @Type(type = "org.hibernate.type.UUIDCharType")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column
-    private UUID datasetId;
+//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+//    @Column(length = 36)
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
@@ -38,10 +38,17 @@ public class Dataset {
     private int datapointCount;
 
     @Column(nullable = false)
+    private int datapointMax;
+
+    @Column(nullable = false)
+    private int datapointMin;
+
+    @Column(nullable = false)
     private int uploadedAt;
 
     @Column(nullable = false)
     private Boolean archived;
+
 
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "datasetId")
 //    private Set<CartItem> cartItems;
