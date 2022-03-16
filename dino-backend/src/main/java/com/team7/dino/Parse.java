@@ -10,9 +10,11 @@ import java.util.List;
 
 public class Parse {
 
-    public static List<Integer> getNums(String encodedString){
+    public static List<Integer> getNums(String encodedString) {
 
-        if (encodedString.length() == 0) { return new ArrayList<>(); }
+        if (encodedString.length() == 0) {
+            return new ArrayList<>();
+        }
 
         byte[] decode = Base64.getDecoder().decode(encodedString);
         String csv = new String(decode, StandardCharsets.UTF_8);
@@ -34,11 +36,9 @@ public class Parse {
     public static List<Integer> blobToList(Blob blob) throws SQLException {
         return Arrays
                 .stream(new String(blobToBytes(blob), StandardCharsets.UTF_8)
-                .split(", "))
+                        .split(", "))
                 .map(Integer::parseInt)
                 .toList();
     }
-
-
 
 }

@@ -1,50 +1,74 @@
 package com.team7.dino.controller;
 
-import com.team7.dino.entity.Dataset;
-import com.team7.dino.entity.Order;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.team7.dino.entity.User;
 import com.team7.dino.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.BiFunction;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+@RequestMapping("/dino-backend/users")
 @Controller
 public class UserController {
 
-
-    // TODO: do login get request
+    private final BiFunction<JsonNode, String, String> removeQuotes = (jsonObj, str) -> jsonObj
+            .get(str)
+            .toString()
+            .replace("\"", "");
     @Autowired
     private UserRepository repository;
 
-//    @RequestMapping(value="/dino-backend/users/login", method=GET)
-//    @ResponseBody
-//    private boolean login(@PathVariable String id) {
-//        return repository.findById(UUID.fromString(id));
-
-    @RequestMapping(value="/dino-backend/users/{id}", method=GET)
+    @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
-    private Optional<User> getUserById(@PathVariable String id) {
-        return repository.findById(UUID.fromString(id));
+    private ResponseEntity<User> getUserById(@PathVariable String id) {
+        if (!repository.existsById(UUID.fromString(id))) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        User user = repository.getById(UUID.fromString(id));
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
     }
 
-    // TODO: error checking
-    @PostMapping("/dino-backend/users")
+    @PostMapping("")
     @ResponseBody
-    private void saveUser(@RequestBody User user) {
+    private ResponseEntity<String> saveUser(@RequestBody JsonNode json) {
+        if (!json.hasNonNull("email") || !json.hasNonNull("password")) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        User user = User
+                .builder()
+                .id(UUID.randomUUID())
+                .email(removeQuotes.apply(json, "email"))
+                .password(removeQuotes.apply(json, "password"))
+                .isAdmin(false)
+                .build();
+
+        if (json.hasNonNull("displayname")) {
+            user.setDisplayName(removeQuotes.apply(json, "displayname"));
+        }
+
         repository.save(user);
+
+        return new ResponseEntity<>(user.getId().toString(), HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/dino-backend/users", method = GET)
+    @GetMapping(value = "/login")
     @ResponseBody
-    private List<User> getAllUsers() {
-//        System.out.println(repository.findAll());
-        return repository.findAll();
+    private ResponseEntity<String> login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password) {
+        Optional<User> user = repository.getUserByEmailAndPassword(email, password);
+        if (user.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(user.get().getId().toString(), HttpStatus.OK);
     }
 }

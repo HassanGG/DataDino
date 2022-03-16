@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -18,23 +19,15 @@ public class OrderItem {
 
     @Id
     @GeneratedValue
-    @Column(nullable = false, unique = true)
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(length = 36, nullable = false, unique = true)
     private UUID orderItemId;
 
-
-
-    @Column(name = "order_id", insertable = false, updatable = false)
+    @Column(name = "order_id")
     private String orderId;
-    @Column(name = "dataset_id", insertable = false, updatable = false)
+
+    @Column(name = "dataset_id")
     private String datasetId;
-
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
-//    private Order orderId;
-
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
-//    private Dataset datasetId;
 
     @Column(nullable = false)
     private int datapointCount;

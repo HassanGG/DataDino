@@ -5,18 +5,18 @@ VALUES ('0ebff3b0-0924-4c91-b1c5-29f4b29cc194', false, 1450, 100, 50,  0.02, 'mo
 INSERT INTO dataset (id, archived, datapoint_count, datapoint_max, datapoint_min, datapoint_price, description, name, uploaded_at)
 VALUES ('d99bca2f-ca4e-42b3-8e26-bc196386cc08', false, 10000, 10000, 5000, 1.5, 'asdfasdfasdf', 'namee1', 1647263239);
 
-INSERT INTO users (user_id, display_name, email, is_admin, password)
+INSERT INTO users (id, display_name, email, is_admin, password)
 VALUES ('3f277e58-1f07-4831-ad40-a06d54912eec', 'John', 'john@jmail.com', false, '123');
-INSERT INTO users (user_id, display_name, email, is_admin, password)
+INSERT INTO users (id, display_name, email, is_admin, password)
 VALUES ('6a902430-68c8-4299-a533-72773405e921', 'John', 'jhn@jmail.com', false, '123');
-INSERT INTO users (user_id, display_name, email, is_admin, password)
+INSERT INTO users (id, display_name, email, is_admin, password)
 VALUES ('dc31adcb-1740-43fc-8fbe-ef859654fada', 'John', 'john@jail.com', false, '123');
 
-INSERT INTO orders (order_id, purchased_at, state, total, user_id)
+INSERT INTO orders (id, purchased_at, state, total, user_id)
 VALUES ('35b14ea0-52a7-4b6b-8034-47c4034a8d7a', 1647261814, 'Cancelled', 23, '3f277e58-1f07-4831-ad40-a06d54912eec');
-INSERT INTO orders (order_id, purchased_at, state, total, user_id)
+INSERT INTO orders (id, purchased_at, state, total, user_id)
 VALUES ('77766b66-8fa6-4c65-b372-c87513e49532', 1647261814, 'New', 5.6,'dc31adcb-1740-43fc-8fbe-ef859654fada' );
-INSERT INTO orders (order_id, purchased_at, state, total, user_id)
+INSERT INTO orders (id, purchased_at, state, total, user_id)
 VALUES ('8fca5348-170c-4b62-a239-2430ce54a8e6', 1647261814, 'Delivered', 2.2, '3f277e58-1f07-4831-ad40-a06d54912eec');
 
 INSERT INTO order_item (order_item_id, datapoint_count, dataset_id, order_id)
