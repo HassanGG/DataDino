@@ -149,13 +149,15 @@ export const CheckoutPage = () => {
                       />
                     </div>
 
-                    <button
-                      className="btn btn-dark mt-3"
-                      type="submit"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? <Loading /> : "Purchase"}
-                    </button>
+                    {isLoading ? (
+                      <div className="fs-6">
+                        <Loading />
+                      </div>
+                    ) : (
+                      <button className="btn btn-dark mt-3" type="submit">
+                        Purchase
+                      </button>
+                    )}
                   </Form>
                 </Formik>
               </div>

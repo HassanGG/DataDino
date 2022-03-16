@@ -17,10 +17,16 @@ import {
 import aveta from "aveta"
 import { useState, useContext } from "react"
 import { UserContext } from "common/contexts/user.context"
+import { Field, Form, Formik } from "formik"
+import { EditDatasetForm } from "./Dataset.types"
+import Loading from "common/components/loading"
 
 export const DatasetPage = () => {
   const { datasetId } = useParams() as { datasetId: string }
-  const { cart, setCart } = useContext(UserContext)
+  const { user, cart, setCart } = useContext(UserContext)
+  const [isEditing, setIsEditing] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const isAdmin = user?.isOwner ?? false
   const cartItem = cart.find(item => item.datasetId === datasetId)
   const alreadyInCart = Boolean(cartItem)
   const [datapointCount, setDatapointCount] = useState(
@@ -73,20 +79,82 @@ export const DatasetPage = () => {
       setCart(newCart)
     }
 
-    return (
-      <>
-        <div className="row g-0">
-          <div className="col-md-7 card-body">
-            <h1 className="card-title">{dataset.name}</h1>
-            <p className="card-text d-flex flex-column gap-1">
-              <small className="text-muted">
-                Uploaded {format(dataset.uploadedAt)}
-              </small>
-              <small className="text-muted">
-                {dataset.datapointMin} &le; Values &le; {dataset.datapointMax}{" "}
-              </small>
-            </p>
-            <p className="card-text mt-4 mb-5">{dataset.description}</p>
+    const titleButton = (() => {
+      if (!isAdmin) return <></>
+      if (isEditing)
+        return (
+          <>
+            {isLoading ? (
+              <div className="fs-6">
+                <Loading />
+              </div>
+            ) : (
+              <div className="d-flex gap-2 mb-2">
+                <button type="submit" className="btn btn-light btn-sm mt-2">
+                  Save
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-danger btn-sm mt-2"
+                  onClick={() => {
+                    return setIsEditing(false)
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+          </>
+        )
+
+      return (
+        <button
+          type="button"
+          className="btn btn-light btn-sm mt-2 mb-2"
+          onClick={() => setIsEditing(true)}
+        >
+          Edit
+        </button>
+      )
+    })()
+
+    const title = (() => {
+      if (!isEditing) return dataset.name
+
+      return (
+        <Field
+          className="form-control w-50 fw-bold fs-5"
+          name="name"
+          placeholder="Name"
+          required
+        />
+      )
+    })()
+
+    const description = (() => {
+      if (!isEditing) return dataset.description
+
+      return (
+        <Field
+          className="form-control"
+          component="textarea"
+          rows={4}
+          name="description"
+          placeholder="Description (Optional)"
+        />
+      )
+    })()
+
+    const datapointSelection = (() => {
+      if (!isEditing && dataset.archived)
+        return (
+          <small className="h6 text-muted">
+            This dataset has been archived and is not currently available.
+          </small>
+        )
+      if (!isEditing)
+        return (
+          <>
             <small className="h6 text-muted">
               How many datapoints would you like?
             </small>
@@ -120,28 +188,97 @@ export const DatasetPage = () => {
                 Add to cart
               </button>
             )}
+          </>
+        )
+
+      return (
+        <div className="d-flex gap-2 align-items-end">
+          <div className="me-3">
+            <div className="fw-bold">Datapoint price</div>
+            <Field
+              className="form-control"
+              name="datapointPrice"
+              type="number"
+              placeholder="Datapoint price"
+              required
+            />
           </div>
-          <div className="col-md-5 card-body ml-4">
-            <BarChart width={350} height={400} data={graphData}>
-              <Bar dataKey="price" fill="#3FBF3F" />
-              <CartesianGrid stroke="#ccc" />
-              <XAxis
-                dataKey="percentage"
-                tickFormatter={tick => `${tick * 100}%`}
-              >
-                <Label
-                  value="% Datapoints"
-                  position="insideBottom"
-                  offset={60}
-                />
-              </XAxis>
-              <YAxis tickFormatter={tick => `$${aveta(tick)}`}>
-                <Label value="Price" position="insideTopLeft" offset={90} />
-              </YAxis>
-              <Tooltip />
-            </BarChart>
+          <div className="d-flex align-items-center mb-1">
+            <div className="p fw-bold mb-1 me-2">Archived: </div>
+            <Field name="archived" id="archivedCheckbox" type="checkbox" />
           </div>
         </div>
+      )
+    })()
+
+    const initialValues: EditDatasetForm = {
+      name: dataset.name,
+      datapointPrice: dataset.datapointPrice,
+      archived: dataset.archived,
+      description: dataset.description,
+    }
+
+    const onSubmit = async (values: EditDatasetForm) => {
+      setIsEditing(false)
+      setIsLoading(true)
+      const { name, datapointPrice, archived, description } = values
+
+      await DatasetService.patch({
+        id: dataset.id,
+        name,
+        datapointPrice,
+        archived,
+        description,
+      })
+
+      setIsLoading(false)
+    }
+
+    return (
+      <>
+        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+          <Form>
+            <div className="row g-0">
+              <div className="col-md-7 card-body">
+                <h1 className="card-title d-flex justify-content-between align-items-center gap-3">
+                  {title}
+                  {titleButton}
+                </h1>
+                <p className="card-text d-flex flex-column gap-1">
+                  <small className="text-muted">
+                    Uploaded {format(dataset.uploadedAt)}
+                  </small>
+                  <small className="text-muted">
+                    {dataset.datapointMin} &le; Values &le;{" "}
+                    {dataset.datapointMax}{" "}
+                  </small>
+                </p>
+                <p className="card-text mt-4 mb-5">{description}</p>
+                {datapointSelection}
+              </div>
+              <div className="col-md-5 card-body ml-4">
+                <BarChart width={350} height={400} data={graphData}>
+                  <Bar dataKey="price" fill="#3FBF3F" />
+                  <CartesianGrid stroke="#ccc" />
+                  <XAxis
+                    dataKey="percentage"
+                    tickFormatter={tick => `${tick * 100}%`}
+                  >
+                    <Label
+                      value="% Datapoints"
+                      position="insideBottom"
+                      offset={60}
+                    />
+                  </XAxis>
+                  <YAxis tickFormatter={tick => `$${aveta(tick)}`}>
+                    <Label value="Price" position="insideTopLeft" offset={90} />
+                  </YAxis>
+                  <Tooltip />
+                </BarChart>
+              </div>
+            </div>
+          </Form>
+        </Formik>
       </>
     )
   }

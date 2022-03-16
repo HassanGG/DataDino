@@ -25,7 +25,7 @@ export const DatasetService = new (class {
     datapointPrice: number
     uploadedAt: number
     archived?: boolean
-    file: Blob
+    file: File
   }): Promise<string | undefined> {
     const body = JSON.stringify({
       name,
@@ -48,18 +48,21 @@ export const DatasetService = new (class {
     name,
     description,
     datapointPrice,
+    archived,
     file,
   }: {
     id: string
     name?: string
     description?: string
     datapointPrice?: number
-    file?: Blob
+    archived?: boolean
+    file?: File
   }): Promise<void> {
     const body = JSON.stringify({
       name,
       description,
       datapointPrice,
+      archived,
       file,
     })
     const init: RequestInit = {

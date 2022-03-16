@@ -85,8 +85,7 @@ export const ProfilePage = () => {
             <td>{prettyPurchasedAt}</td>
             <td>{prettyTotal}</td>
           </tr>
-          {/* TODO: change this to OrderState.Delivered; this is for testing */}
-          {order.state === OrderState.New && (
+          {order.state === OrderState.Delivered && (
             <tr>
               <td colSpan={4}>
                 <table className="table table-borderless table-sm mb-0 caption-top">

@@ -1,7 +1,7 @@
 import { Order, OrderItem, OrderState } from "common/data/order"
 import { User } from "common/data/user"
 import { rest } from "msw"
-import { generateDataset } from "./generate-data"
+import { generateDataset, generateOrder } from "./generate-data"
 
 const delay = Math.floor(Math.random() * 400) + 200
 
@@ -14,7 +14,12 @@ const datasets = Object.fromEntries(
 
 type FullUser = User & { password: string }
 
-const orders: { [key: string]: Order } = {}
+const orders: { [key: string]: Order } = Object.fromEntries(
+  Array.from(Array(10)).map(() => {
+    const order = generateOrder(Object.keys(datasets))
+    return [order.id, order]
+  }),
+)
 const users: { [key: string]: FullUser } = {
   "1234567890": {
     id: "1234567890",
