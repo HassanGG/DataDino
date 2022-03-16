@@ -11,6 +11,8 @@ INSERT INTO users (id, display_name, email, is_admin, password)
 VALUES ('6a902430-68c8-4299-a533-72773405e921', 'John', 'jhn@jmail.com', false, '123');
 INSERT INTO users (id, display_name, email, is_admin, password)
 VALUES ('dc31adcb-1740-43fc-8fbe-ef859654fada', 'John', 'john@jail.com', false, '123');
+INSERT INTO users (id, display_name, email, is_admin, password)
+VALUES ('9013ccbe-0ad9-41a4-8619-cae04b85cb68', 'Admin', 'admin@admin.com', true, '123');
 
 INSERT INTO orders (id, purchased_at, state, total, user_id)
 VALUES ('35b14ea0-52a7-4b6b-8034-47c4034a8d7a', 1647261814, 'Cancelled', 23, '3f277e58-1f07-4831-ad40-a06d54912eec');
