@@ -26,9 +26,18 @@ services:
       - dino-net
     depends_on:
       - "dino-db"
-    command: ["./wait-for-it.sh", "-t", "30", "dino-db:3306", "--", "java", "-jar", "dino.jar"]
+    command:
+      [
+        "./wait-for-it.unix.sh",
+        "-t",
+        "30",
+        "dino-db:3306",
+        "--",
+        "java",
+        "-jar",
+        "dino.jar",
+      ]
     environment:
       spring.datasource.url: "jdbc:mysql://dino-db:3306/dinodb"
 networks:
   dino-net:
-

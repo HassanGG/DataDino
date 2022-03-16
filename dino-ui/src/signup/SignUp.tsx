@@ -15,7 +15,7 @@ export const SignUpPage = () => {
   const navigate = useNavigate()
 
   const initialValues = {
-    username: "",
+    displayName: "",
     email: "",
     password: "",
   }
@@ -48,7 +48,7 @@ export const SignUpPage = () => {
               <div className="form-group mt-3 w-100">
                 <Field
                   className="form-control"
-                  name="username"
+                  name="displayName"
                   placeholder="Display name"
                   required
                 />

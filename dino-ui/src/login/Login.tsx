@@ -14,8 +14,7 @@ export const LoginPage = () => {
   const { setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
-  const initialValues = {
-    username: "",
+  const initialValues: LoginForm = {
     email: "",
     password: "",
   }

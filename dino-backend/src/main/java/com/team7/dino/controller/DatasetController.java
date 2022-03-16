@@ -19,6 +19,7 @@ import java.util.function.BiFunction;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+@CrossOrigin
 @RequestMapping("/dino-backend/datasets")
 @Controller
 public class DatasetController {
@@ -63,8 +64,8 @@ public class DatasetController {
                 .name(json.get("name").toString().substring(1, json.get("name").toString().length() - 1))
                 .archived(Boolean.valueOf(json.get("archived").toString()))
                 .datapointPrice(Integer.parseInt(json.get("datapointPrice").toString()))
-                .uploadedAt(Integer.parseInt(String.valueOf(json.get("uploadedAt"))))
-                .datapointMax(nums.stream().max(Integer::compare).orElseGet(() -> 0)) //TODO: possible fuckup
+                .uploadedAt(json.get("uploadedAt").asInt())
+                .datapointMax(nums.stream().max(Integer::compare).orElseGet(() -> 0)) // TODO: possible fuckup
                 .datapointMin(nums.stream().min(Integer::compare).orElseGet(() -> 0))
                 .build();
 
@@ -86,7 +87,9 @@ public class DatasetController {
 
     @GetMapping("/{id}/data")
     @ResponseBody
-    private ResponseEntity<List<Integer>> getDataByCount(@RequestParam(name = "datapointCount") Optional<Integer> datapointCount, @PathVariable(name = "id") String id) throws SQLException {
+    private ResponseEntity<List<Integer>> getDataByCount(
+            @RequestParam(name = "datapointCount") Optional<Integer> datapointCount,
+            @PathVariable(name = "id") String id) throws SQLException {
         DataStore datastore;
         try {
             datastore = repoData.getDataStoreByDatasetId(id);
@@ -111,8 +114,9 @@ public class DatasetController {
 
     @PatchMapping("/{id}")
     @ResponseBody
-    private ResponseEntity<String> patchDataset(@RequestBody JsonNode json, @PathVariable(name = "id") String id) throws SQLException {
-        if (!repository.existsById(UUID.fromString(id)) || repoData.getDataStoreByDatasetId(id) == null) {
+    private ResponseEntity<String> patchDataset(@RequestBody JsonNode json, @PathVariable(name = "id") String id)
+            throws SQLException {
+        if (!repository.existsById(UUID.fromString(id))) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Dataset dataset = repository.getById(UUID.fromString(id));
@@ -132,14 +136,15 @@ public class DatasetController {
             dataset.setArchived(json.get("archived").asBoolean());
         }
 
-        DataStore dataStore = repoData.getDataStoreByDatasetId(id);
-
-        if (json.hasNonNull("file")) {
-            dataStore.setData(new SerialBlob(Parse.getBytesFromEncodedString(removeQuotes.apply(json, "file"))));
-        }
+        // DataStore dataStore = repoData.getDataStoreByDatasetId(id);
+        // if (json.hasNonNull("file")) {
+        // dataStore.setData(new
+        // SerialBlob(Parse.getBytesFromEncodedString(removeQuotes.apply(json,
+        // "file"))));
+        // }
 
         repository.save(dataset);
-        repoData.save(dataStore);
+        // repoData.save(dataStore);
 
         return new ResponseEntity<>(id, HttpStatus.OK);
     }

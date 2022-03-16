@@ -1,11 +1,11 @@
 import { fetchJson } from "common/utils/fetch-json"
 import { Order, OrderItem, OrderState } from "common/data/order"
 
-const baseUrl = "http://localhost:3000/dino-backend/orders"
+const baseUrl = "http://localhost:8080/dino-backend/orders"
 
 export const OrderService = new (class {
-  async getAll({ customerId }: { customerId?: string }): Promise<Order[]> {
-    const url = baseUrl + (customerId ? `?customerId=${customerId}` : "")
+  async getAll({ userId }: { userId?: string }): Promise<Order[]> {
+    const url = baseUrl + (userId ? `?userId=${userId}` : "")
     return fetchJson(url)
   }
 
@@ -14,28 +14,28 @@ export const OrderService = new (class {
   }
 
   async post({
-    customerId,
+    userId,
     items,
     total,
     purchasedAt,
   }: {
-    customerId: string
+    userId: string
     items: OrderItem[]
     total: number
     purchasedAt: number
   }): Promise<string | undefined> {
     const body = JSON.stringify({
-      customerId,
+      userId,
       items,
       total,
       purchasedAt,
     })
     const init: RequestInit = {
-      method: "post",
+      method: "POST",
       body,
     }
 
-    return fetchJson(baseUrl, init)
+    return fetchJson(baseUrl, init, true)
   }
 
   async patch({ id, state }: { id: string; state: OrderState }): Promise<void> {
@@ -43,7 +43,7 @@ export const OrderService = new (class {
       state,
     })
     const init: RequestInit = {
-      method: "patch",
+      method: "PATCH",
       body,
     }
 

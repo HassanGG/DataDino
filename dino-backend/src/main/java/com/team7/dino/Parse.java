@@ -19,7 +19,8 @@ public class Parse {
         byte[] decode = Base64.getDecoder().decode(encodedString);
         String csv = new String(decode, StandardCharsets.UTF_8);
         return Arrays
-                .stream(csv.split(", "))
+                .stream(csv.split(","))
+                .map(String::trim)
                 .map(Integer::parseInt)
                 .toList();
     }
@@ -36,7 +37,8 @@ public class Parse {
     public static List<Integer> blobToList(Blob blob) throws SQLException {
         return Arrays
                 .stream(new String(blobToBytes(blob), StandardCharsets.UTF_8)
-                        .split(", "))
+                        .split(","))
+                .map(String::trim)
                 .map(Integer::parseInt)
                 .toList();
     }

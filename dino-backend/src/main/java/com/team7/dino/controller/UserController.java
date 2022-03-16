@@ -15,6 +15,7 @@ import java.util.function.BiFunction;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+@CrossOrigin
 @RequestMapping("/dino-backend/users")
 @Controller
 public class UserController {
@@ -52,8 +53,8 @@ public class UserController {
                 .isAdmin(false)
                 .build();
 
-        if (json.hasNonNull("displayname")) {
-            user.setDisplayName(removeQuotes.apply(json, "displayname"));
+        if (json.hasNonNull("displayName")) {
+            user.setDisplayName(removeQuotes.apply(json, "displayName"));
         }
 
         repository.save(user);
@@ -63,12 +64,13 @@ public class UserController {
 
     @GetMapping(value = "/login")
     @ResponseBody
-    private ResponseEntity<String> login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password) {
+    private ResponseEntity<User> login(@RequestParam(name = "email") String email,
+            @RequestParam(name = "password") String password) {
         Optional<User> user = repository.getUserByEmailAndPassword(email, password);
         if (user.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(user.get().getId().toString(), HttpStatus.OK);
+        return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 }

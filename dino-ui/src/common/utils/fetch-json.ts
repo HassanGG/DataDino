@@ -1,4 +1,8 @@
-export const fetchJson = async <T>(url: string, init?: RequestInit) => {
+export const fetchJson = async <T>(
+  url: string,
+  init?: RequestInit,
+  expectString = false,
+) => {
   const response = await fetch(url, {
     ...init,
     headers: {
@@ -8,10 +12,11 @@ export const fetchJson = async <T>(url: string, init?: RequestInit) => {
   })
 
   if (!response.ok) {
+    console.error("Error: ", response)
     throw response.statusText
   }
 
-  const json = await response.json()
+  const value = expectString ? await response.text() : await response.json()
 
-  return json as T
+  return value as T
 }
