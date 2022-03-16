@@ -23,7 +23,7 @@ export const generateDataset = (): DatasetMeta => {
 export const generateOrder = (datasetIds: string[]): Order => {
   return {
     id: faker.datatype.uuid(),
-    customerId: "0987654321",
+    userId: "0987654321",
     state: faker.random.arrayElement(Object.values(OrderState)),
     total: faker.datatype.number({ min: 10, max: 100000, precision: 0.01 }),
     purchasedAt: faker.time.recent() as number,

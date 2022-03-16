@@ -96,7 +96,7 @@ export const CheckoutPage = () => {
     const totalPrice = computeTotalPrice(datasets)
 
     await OrderService.post({
-      customerId: user.id,
+      userId: user.id,
       items: cart,
       total: totalPrice,
       purchasedAt: Date.now(),

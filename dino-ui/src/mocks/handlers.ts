@@ -23,14 +23,14 @@ const orders: { [key: string]: Order } = Object.fromEntries(
 const users: { [key: string]: FullUser } = {
   "1234567890": {
     id: "1234567890",
-    isOwner: true,
+    isAdmin: true,
     displayName: "OWNER BITCH",
     email: "admin@gmail.com",
     password: "admin",
   },
   "0987654321": {
     id: "0987654321",
-    isOwner: false,
+    isAdmin: false,
     displayName: "bah",
     email: "test@gmail.com",
     password: "test",
@@ -43,7 +43,7 @@ interface SignUpReq {
 }
 
 interface OrderPostReq {
-  customerId: string
+  userId: string
   items: OrderItem[]
   total: number
   purchasedAt: number
@@ -75,13 +75,11 @@ export const handlers = [
   // Orders
 
   rest.get("/dino-backend/orders", (req, res, ctx) => {
-    const _customerId = req.url.searchParams.get("customerId")
+    const _userId = req.url.searchParams.get("userId")
 
-    if (_customerId) {
+    if (_userId) {
       const _orders = Object.fromEntries(
-        Object.entries(orders).filter(
-          ([, { customerId }]) => customerId === _customerId,
-        ),
+        Object.entries(orders).filter(([, { userId }]) => userId === _userId),
       )
 
       return res(
@@ -109,7 +107,7 @@ export const handlers = [
   rest.post<OrderPostReq>("/dino-backend/orders", (req, res, ctx) => {
     const order: Order = {
       id: Math.random().toString(36).substring(2, 9),
-      customerId: req.body.customerId,
+      userId: req.body.userId,
       state: OrderState.New,
       items: req.body.items,
       total: req.body.total,
@@ -143,7 +141,7 @@ export const handlers = [
     const user: FullUser = {
       displayName: "This user",
       id: Math.random().toString(36).substring(2, 9),
-      isOwner: false,
+      isAdmin: false,
       email: req.body.email,
       password: req.body.password,
     }

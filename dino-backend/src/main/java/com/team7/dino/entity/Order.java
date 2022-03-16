@@ -16,13 +16,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "orders")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+// @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order {
 
     @Id
-//    @GeneratedValue(generator = "UUID")
+    // @GeneratedValue(generator = "UUID")
     @Type(type = "org.hibernate.type.UUIDCharType")
-//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    // @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column
     private UUID id;
 
@@ -39,5 +39,5 @@ public class Order {
     private int purchasedAt;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderId")
-    private Set<OrderItem> orderItems;
+    private Set<OrderItem> items;
 }

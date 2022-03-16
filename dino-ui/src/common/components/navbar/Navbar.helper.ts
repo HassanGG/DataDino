@@ -8,6 +8,6 @@ export enum UserNavbarItemName {
 
 export const getUserNavbarItemName = (user: User | null) => {
   if (!user) return UserNavbarItemName.Login
-  if (user.isOwner) return UserNavbarItemName.Admin
+  if (user.isAdmin) return UserNavbarItemName.Admin
   return UserNavbarItemName.Profile
 }

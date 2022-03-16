@@ -15,7 +15,7 @@ export const ProfilePage = () => {
   const { user, setUser } = useContext(UserContext)
   const query = useQuery(["order", user?.id], () => {
     if (!user) return Promise.resolve([])
-    return OrderService.getAll({ customerId: user.id })
+    return OrderService.getAll({ userId: user.id })
   })
   const datasetsQuery = useQuery("datasets", DatasetService.getAll)
 
@@ -47,6 +47,7 @@ export const ProfilePage = () => {
   }
 
   const onOrdersData = (orders: Order[]) => {
+    console.log(orders)
     const orderRows = orders.map((order, index) => {
       const prettyPurchasedAt = moment(new Date(order.purchasedAt)).format(
         "DD/MM/YYYY",
@@ -54,7 +55,8 @@ export const ProfilePage = () => {
       const prettyTotal = "$" + order.total.toFixed(2)
 
       const onDatasetsData = (datasets: DatasetMeta[]) => {
-        const orderItemRows = order.items.map(orderItem => {
+        console.log(order.items)
+        const orderItemRows = order.items?.map(orderItem => {
           const dataset = datasets.find(({ id }) => id === orderItem.datasetId)
           if (!dataset) throw "Dataset corresponding to order item not found"
 

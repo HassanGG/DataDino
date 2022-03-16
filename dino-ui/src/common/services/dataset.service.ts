@@ -1,7 +1,8 @@
 import { fetchJson } from "common/utils/fetch-json"
 import { DatasetMeta } from "common/data/dataset"
+import { fileToBase64 } from "./helpers"
 
-const baseUrl = "http://localhost:3000/dino-backend/datasets"
+const baseUrl = "http://localhost:8080/dino-backend/datasets"
 
 export const DatasetService = new (class {
   async getAll(): Promise<DatasetMeta[]> {
@@ -27,20 +28,23 @@ export const DatasetService = new (class {
     archived?: boolean
     file: File
   }): Promise<string | undefined> {
+    const encodedFile = await fileToBase64(file)
+
     const body = JSON.stringify({
       name,
       description,
       datapointPrice,
       uploadedAt,
       archived,
-      file,
+      file: encodedFile,
     })
+
     const init: RequestInit = {
-      method: "post",
+      method: "POST",
       body,
     }
 
-    return fetchJson(baseUrl, init)
+    return fetchJson(baseUrl, init, true)
   }
 
   async patch({
@@ -66,7 +70,7 @@ export const DatasetService = new (class {
       file,
     })
     const init: RequestInit = {
-      method: "patch",
+      method: "PATCH",
       body,
     }
 

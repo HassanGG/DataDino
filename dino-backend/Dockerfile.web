@@ -1,3 +1,4 @@
 FROM openjdk:17
 COPY ./target/dino-0.0.1-SNAPSHOT.jar dino.jar
 ADD ./wait-for-it.sh wait-for-it.sh
+ADD ./wait-for-it.unix.sh wait-for-it.unix.sh

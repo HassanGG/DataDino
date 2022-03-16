@@ -1,5 +1,5 @@
 export interface SignUpFormTypes {
-    username: string,
-    email: string,
-    password: string
+  displayName: string
+  email: string
+  password: string
 }

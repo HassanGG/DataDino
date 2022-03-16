@@ -1,6 +1,6 @@
 export interface Order {
   id: string
-  customerId: string
+  userId: string
   state: OrderState
   items: OrderItem[]
   total: number

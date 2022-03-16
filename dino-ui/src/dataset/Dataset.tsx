@@ -26,7 +26,7 @@ export const DatasetPage = () => {
   const { user, cart, setCart } = useContext(UserContext)
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const isAdmin = user?.isOwner ?? false
+  const isAdmin = user?.isAdmin ?? false
   const cartItem = cart.find(item => item.datasetId === datasetId)
   const alreadyInCart = Boolean(cartItem)
   const [datapointCount, setDatapointCount] = useState(

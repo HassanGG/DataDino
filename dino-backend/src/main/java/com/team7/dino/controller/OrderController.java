@@ -18,6 +18,7 @@ import java.util.function.BiFunction;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+@CrossOrigin
 @RequestMapping("/dino-backend/orders")
 @Controller
 public class OrderController {
@@ -75,6 +76,7 @@ public class OrderController {
         Order order = Order
                 .builder()
                 .id(orderId)
+                // TODO: issue here; purchasedAt being stored as negative number?
                 .purchasedAt(json.get("purchasedAt").asInt())
                 .total(json.get("total").asDouble())
                 .state("New")
