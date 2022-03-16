@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.List;
 import java.util.function.BiFunction;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -23,30 +22,34 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/dino-backend/datasets")
 @Controller
 public class DatasetController {
-    @Autowired
-    private DatasetRepository repository;
-
-    @Autowired
-    private DataStoreRepository repoData;
-
-    @RequestMapping(value = "/", method = GET)
-    @ResponseBody
-    private List<Dataset> getAllDatasets() {
-        return repository.findAll();
-    }
-
-    @RequestMapping(value = "/{id}", method = GET)
-    @ResponseBody
-    private Optional<Dataset> getDatasetById(@PathVariable String id) {
-        return repository.findById(UUID.fromString(id));
-    }
-
     private final BiFunction<JsonNode, String, String> removeQuotes = (jsonObj, str) -> jsonObj
             .get(str)
             .toString()
             .replace("\"", "");
+    @Autowired
+    private DatasetRepository repository;
+    @Autowired
+    private DataStoreRepository repoData;
 
-    @PostMapping("/")
+    @RequestMapping(value = "", method = GET)
+    @ResponseBody
+    private ResponseEntity<List<Dataset>> getAllDatasets() {
+        return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = GET)
+    @ResponseBody
+    private ResponseEntity<Dataset> getDatasetById(@PathVariable String id) {
+        Optional<Dataset> dataset = repository.findById(UUID.fromString(id));
+
+        if (dataset.isEmpty()) {
+            new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(dataset.get(), HttpStatus.OK);
+    }
+
+    @PostMapping("")
     @ResponseBody
     private ResponseEntity<String> saveDataset(@RequestBody JsonNode json) throws SQLException {
         if (!json.hasNonNull("file") || removeQuotes.apply(json, "file").isEmpty()) {
