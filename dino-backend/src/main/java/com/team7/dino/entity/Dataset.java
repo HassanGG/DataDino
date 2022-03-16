@@ -44,8 +44,8 @@ public class Dataset {
     @Column(nullable = false)
     private int datapointMin;
 
-    @Column(nullable = false)
-    private int uploadedAt;
+    @Column(columnDefinition = "bigint(255)", nullable = false)
+    private long uploadedAt;
 
     @Column(nullable = false)
     private Boolean archived;

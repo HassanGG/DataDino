@@ -62,15 +62,16 @@ public class DatasetController {
                 .builder()
                 .id(UUID.randomUUID())
                 .name(json.get("name").toString().substring(1, json.get("name").toString().length() - 1))
-                .archived(Boolean.valueOf(json.get("archived").toString()))
-                .datapointPrice(Integer.parseInt(json.get("datapointPrice").toString()))
-                .uploadedAt(json.get("uploadedAt").asInt())
+                .archived(json.get("archived").asBoolean())
+                .datapointPrice(json.get("datapointPrice").asDouble())
+                .datapointCount(nums.toArray().length)
+                .uploadedAt(json.get("uploadedAt").asLong())
                 .datapointMax(nums.stream().max(Integer::compare).orElseGet(() -> 0)) // TODO: possible fuckup
                 .datapointMin(nums.stream().min(Integer::compare).orElseGet(() -> 0))
                 .build();
 
         if (json.hasNonNull("description")) {
-            dataset.setDescription(String.valueOf(json.get("description")));
+            dataset.setDescription(removeQuotes.apply(json, "description"));
         }
 
         DataStore data = DataStore

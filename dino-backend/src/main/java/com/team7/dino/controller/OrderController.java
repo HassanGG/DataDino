@@ -77,7 +77,7 @@ public class OrderController {
                 .builder()
                 .id(orderId)
                 // TODO: issue here; purchasedAt being stored as negative number?
-                .purchasedAt(json.get("purchasedAt").asInt())
+                .purchasedAt(json.get("purchasedAt").asLong())
                 .total(json.get("total").asDouble())
                 .state("New")
                 .userId(removeQuotes.apply(json, "userId"))
