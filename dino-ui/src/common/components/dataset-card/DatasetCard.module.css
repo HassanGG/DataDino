@@ -3,3 +3,8 @@
   display: inline-block;
   flex: none;
 }
+
+.disabled {
+  cursor: default;
+  pointer-events: none;
+}

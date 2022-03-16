@@ -9,11 +9,15 @@ import debounce from "lodash.debounce"
 
 export const DatasetsPage = () => {
   const [input, setInput] = useState("")
+  const [filterArchived, setFilterArchived] = useState(true)
   const query = useQuery("datasets", DatasetService.getAll)
   const onData = (datasets: DatasetMeta[]) => {
-    const filteredDatasets = datasets.filter(({ name }) =>
-      name.toLowerCase().includes(input.toLowerCase()),
-    )
+    const filteredDatasets = datasets.filter(({ name, archived }) => {
+      const includesText = name.toLowerCase().includes(input.toLowerCase())
+      const archiveFilter = (filterArchived && !archived) || !filterArchived
+
+      return includesText && archiveFilter
+    })
     const debouncedSetInput = debounce(
       (event: any) => setInput(event.target.value),
       1200,
@@ -34,11 +38,26 @@ export const DatasetsPage = () => {
               e.key === "Enter" && setInput((e.target as any).value)
             }
             type="text"
-            className="form-control"
+            className="form-control rounded-end"
             placeholder="Search..."
             aria-label="Search"
             aria-describedby="addon-wrapping"
           />
+          <div className="form-check ms-5 mt-1">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              defaultChecked={true}
+              onChange={(e: any) => setFilterArchived(e.target.checked)}
+              id="archiveFilterCheck"
+            />
+            <label
+              className="form-check-label mb-1"
+              htmlFor="archiveFilterCheck"
+            >
+              Filter Archived
+            </label>
+          </div>
         </div>
         <div className="d-flex flex-wrap gy-2 justify-content-around">
           {filteredDatasets.length === 0 ? (
