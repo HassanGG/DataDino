@@ -35,6 +35,7 @@ public class Parse {
     }
 
     public static List<Integer> blobToList(Blob blob) throws SQLException {
+//        return getNums(new String(blobToBytes(blob), StandardCharsets.UTF_8));
         return Arrays
                 .stream(new String(blobToBytes(blob), StandardCharsets.UTF_8)
                         .split(","))

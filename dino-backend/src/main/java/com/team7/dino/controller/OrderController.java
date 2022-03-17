@@ -52,7 +52,7 @@ public class OrderController {
         Optional<Order> order = repository.findById(UUID.fromString(id));
 
         if (order.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(order.get(), HttpStatus.OK);

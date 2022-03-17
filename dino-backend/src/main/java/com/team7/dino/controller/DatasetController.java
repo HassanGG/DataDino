@@ -136,16 +136,7 @@ public class DatasetController {
         if (json.hasNonNull("archived")) {
             dataset.setArchived(json.get("archived").asBoolean());
         }
-
-        // DataStore dataStore = repoData.getDataStoreByDatasetId(id);
-        // if (json.hasNonNull("file")) {
-        // dataStore.setData(new
-        // SerialBlob(Parse.getBytesFromEncodedString(removeQuotes.apply(json,
-        // "file"))));
-        // }
-
         repository.save(dataset);
-        // repoData.save(dataStore);
 
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
