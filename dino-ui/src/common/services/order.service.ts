@@ -38,7 +38,13 @@ export const OrderService = new (class {
     return fetchJson(baseUrl, init, true)
   }
 
-  async patch({ id, state }: { id: string; state: OrderState }): Promise<void> {
+  async patch({
+    id,
+    state,
+  }: {
+    id: string
+    state: OrderState
+  }): Promise<string | undefined> {
     const body = JSON.stringify({
       state,
     })
@@ -47,6 +53,6 @@ export const OrderService = new (class {
       body,
     }
 
-    return fetchJson(`${baseUrl}/${id}`, init)
+    return fetchJson(`${baseUrl}/${id}`, init, true)
   }
 })()

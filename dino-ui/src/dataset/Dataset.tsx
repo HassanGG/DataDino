@@ -231,6 +231,7 @@ export const DatasetPage = () => {
         description,
       })
 
+      query.refetch()
       setIsLoading(false)
     }
 

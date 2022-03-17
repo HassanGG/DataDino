@@ -8,7 +8,6 @@ import { useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
 import moment from "moment"
 import { DatasetService } from "common/services/dataset.service"
-import { DatasetMeta } from "common/data/dataset"
 import { Field, Form, Formik, useFormikContext } from "formik"
 import { CreateDatasetForm } from "./Admin.types"
 import Loading from "common/components/loading"
@@ -33,7 +32,6 @@ const FileField = () => {
         accept=".csv"
         onChange={(event: any) => {
           const file = event.currentTarget.files[0]
-          console.log(file)
           setFieldValue("file", file)
         }}
         required
@@ -52,7 +50,6 @@ export const AdminPage = () => {
   const query = useQuery(["order"], () => {
     return OrderService.getAll({})
   })
-  const datasetsQuery = useQuery("datasets", DatasetService.getAll)
 
   const signOut = () => {
     setUser(null)
@@ -67,8 +64,9 @@ export const AdminPage = () => {
   // We need both the orders and datasets for the rest of the
   // components on the page!
   const onOrdersData = (orders: Order[]) => {
-    const onDatasetsData = (datasets: DatasetMeta[]) => {
-      const orderRows = orders.map((order, index) => {
+    const orderRows = orders
+      .sort((a, b) => b.purchasedAt - a.purchasedAt)
+      .map((order, index) => {
         const prettyPurchasedAt = moment(new Date(order.purchasedAt)).format(
           "DD/MM/YYYY",
         )
@@ -116,131 +114,122 @@ export const AdminPage = () => {
         )
       })
 
-      const initialValues: CreateDatasetForm = {
-        name: "",
-        datapointPrice: 0,
-        archived: false,
-        description: "",
-      }
-
-      const onSubmit = async (values: CreateDatasetForm) => {
-        setIsLoading(true)
-        const { file, name, datapointPrice, archived, description } = values
-        if (!file) throw "File was not provided"
-
-        const datasetId = await DatasetService.post({
-          file,
-          name,
-          datapointPrice,
-          archived,
-          description,
-          uploadedAt: Date.now(),
-        })
-
-        if (datasetId) {
-          navigate("/datasets")
-        }
-
-        setIsLoading(false)
-      }
-
-      const graphData = orders
-        .map(order => {
-          return {
-            date: order.purchasedAt,
-            price: order.total,
-          }
-        })
-        .sort((a, b) => a.date - b.date)
-
-      return (
-        <>
-          <div className="h4 mt-3">Manage Orders</div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Status</th>
-                <th scope="col">Purchased At</th>
-                <th scope="col">Total Price</th>
-              </tr>
-            </thead>
-            <tbody>{orderRows}</tbody>
-          </table>
-
-          <div className="h4 mt-3">Create Dataset</div>
-          <Formik initialValues={initialValues} onSubmit={onSubmit}>
-            <Form className="d-flex flex-column align-items-start gap-3">
-              <div className="d-flex gap-2">
-                <Field
-                  className="form-control"
-                  name="name"
-                  placeholder="Name"
-                  required
-                />
-                <Field
-                  className="form-control"
-                  name="datapointPrice"
-                  type="number"
-                  placeholder="Datapoint price"
-                  required
-                />
-                <div className="d-flex align-items-center">
-                  <div className="p fw-bold mb-1 me-2">Archived: </div>
-                  <Field
-                    name="archived"
-                    id="archivedCheckbox"
-                    type="checkbox"
-                  />
-                </div>
-              </div>
-              <Field
-                className="form-control"
-                component="textarea"
-                rows={2}
-                name="description"
-                placeholder="Description (Optional)"
-              />
-              <FileField />
-
-              {isLoading ? (
-                <div className="fs-6">
-                  <Loading />
-                </div>
-              ) : (
-                <button className="btn btn-dark mt-3" type="submit">
-                  Create
-                </button>
-              )}
-            </Form>
-          </Formik>
-
-          <div className="h4 mt-3">Sales</div>
-          <LineChart
-            width={800}
-            height={400}
-            data={graphData}
-            margin={{ left: 12 }}
-          >
-            <Line dataKey="price" fill="#3FBF3F" />
-            <CartesianGrid stroke="#ccc" />
-            <XAxis
-              dataKey="date"
-              tickFormatter={tick =>
-                moment(new Date(tick)).format("DD/MM/YYYY")
-              }
-            />
-
-            <YAxis tickFormatter={tick => `$${tick}`}>
-              <Label value="Price" position="insideTopLeft" offset={90} />
-            </YAxis>
-            <Tooltip />
-          </LineChart>
-        </>
-      )
+    const initialValues: CreateDatasetForm = {
+      name: "",
+      datapointPrice: 0,
+      archived: false,
+      description: "",
     }
 
-    return <QueryComponent query={datasetsQuery} onData={onDatasetsData} />
+    const onSubmit = async (values: CreateDatasetForm) => {
+      setIsLoading(true)
+      const { file, name, datapointPrice, archived, description } = values
+      if (!file) throw "File was not provided"
+
+      const datasetId = await DatasetService.post({
+        file,
+        name,
+        datapointPrice,
+        archived,
+        description,
+        uploadedAt: Date.now(),
+      })
+
+      if (datasetId) {
+        navigate("/datasets")
+      }
+
+      setIsLoading(false)
+    }
+
+    const graphData = orders
+      .map(order => {
+        return {
+          date: order.purchasedAt,
+          price: order.total,
+        }
+      })
+      .sort((a, b) => a.date - b.date)
+
+    return (
+      <>
+        <div className="h4 mt-3">Manage Orders</div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Status</th>
+              <th scope="col">Purchased At</th>
+              <th scope="col">Total Price</th>
+            </tr>
+          </thead>
+          <tbody>{orderRows}</tbody>
+        </table>
+
+        <div className="h4 mt-3">Create Dataset</div>
+        <Formik initialValues={initialValues} onSubmit={onSubmit}>
+          <Form className="d-flex flex-column align-items-start gap-3">
+            <div className="d-flex gap-2">
+              <Field
+                className="form-control"
+                name="name"
+                placeholder="Name"
+                required
+              />
+              <Field
+                className="form-control"
+                name="datapointPrice"
+                type="number"
+                placeholder="Datapoint price"
+                required
+              />
+              <div className="d-flex align-items-center">
+                <div className="p fw-bold mb-1 me-2">Archived: </div>
+                <Field name="archived" id="archivedCheckbox" type="checkbox" />
+              </div>
+            </div>
+            <Field
+              className="form-control"
+              component="textarea"
+              rows={2}
+              name="description"
+              placeholder="Description (Optional)"
+            />
+            <FileField />
+
+            {isLoading ? (
+              <div className="fs-6">
+                <Loading />
+              </div>
+            ) : (
+              <button className="btn btn-dark mt-3" type="submit">
+                Create
+              </button>
+            )}
+          </Form>
+        </Formik>
+
+        <div className="h4 mt-3">Sales</div>
+        <LineChart
+          width={800}
+          height={400}
+          data={graphData}
+          margin={{ left: 12 }}
+        >
+          <Line dataKey="price" fill="#3FBF3F" />
+          <CartesianGrid stroke="#ccc" />
+          <XAxis
+            dataKey="date"
+            tickFormatter={tick => moment(new Date(tick)).format("DD/MM/YYYY")}
+          />
+
+          <YAxis tickFormatter={tick => `$${tick}`}>
+            <Label value="Price" position="insideTopLeft" offset={90} />
+          </YAxis>
+          <Tooltip />
+        </LineChart>
+      </>
+    )
   }
 
   return (
