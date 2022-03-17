@@ -35,8 +35,8 @@ public class Order {
     @Column(nullable = false)
     private double total;
 
-    @Column(nullable = false)
-    private int purchasedAt;
+    @Column(columnDefinition = "BIGINT(255)", nullable = false)
+    private long purchasedAt;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderId")
     private Set<OrderItem> items;

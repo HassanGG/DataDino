@@ -52,7 +52,7 @@ public class OrderController {
         Optional<Order> order = repository.findById(UUID.fromString(id));
 
         if (order.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(order.get(), HttpStatus.OK);
@@ -77,7 +77,7 @@ public class OrderController {
                 .builder()
                 .id(orderId)
                 // TODO: issue here; purchasedAt being stored as negative number?
-                .purchasedAt(json.get("purchasedAt").asInt())
+                .purchasedAt(json.get("purchasedAt").asLong())
                 .total(json.get("total").asDouble())
                 .state("New")
                 .userId(removeQuotes.apply(json, "userId"))

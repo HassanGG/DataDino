@@ -35,7 +35,6 @@ public class UserController {
         }
         User user = repository.getById(UUID.fromString(id));
         return new ResponseEntity<>(user, HttpStatus.OK);
-
     }
 
     @PostMapping("")

@@ -23,14 +23,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/dino-backend/datasets")
 @Controller
 public class DatasetController {
-    private final BiFunction<JsonNode, String, String> removeQuotes = (jsonObj, str) -> jsonObj
-            .get(str)
-            .toString()
-            .replace("\"", "");
     @Autowired
     private DatasetRepository repository;
     @Autowired
     private DataStoreRepository repoData;
+
+    private final BiFunction<JsonNode, String, String> removeQuotes = (jsonObj, str) -> jsonObj
+            .get(str)
+            .toString()
+            .replace("\"", "");
 
     @RequestMapping(value = "", method = GET)
     @ResponseBody
@@ -41,10 +42,17 @@ public class DatasetController {
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     private ResponseEntity<Dataset> getDatasetById(@PathVariable String id) {
-        Optional<Dataset> dataset = repository.findById(UUID.fromString(id));
+        Optional<Dataset> dataset;
+        try {
+            dataset  = repository.findById(UUID.fromString(id));
+        } catch (IllegalArgumentException e) {
+            System.out.println("--> Exception: Tried to pass invalid UUID as dataset id in GET request.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         if (dataset.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            System.out.println("--> Exception: Provided id does not have corresponding dataset.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(dataset.get(), HttpStatus.OK);
@@ -62,15 +70,16 @@ public class DatasetController {
                 .builder()
                 .id(UUID.randomUUID())
                 .name(json.get("name").toString().substring(1, json.get("name").toString().length() - 1))
-                .archived(Boolean.valueOf(json.get("archived").toString()))
-                .datapointPrice(Integer.parseInt(json.get("datapointPrice").toString()))
-                .uploadedAt(json.get("uploadedAt").asInt())
+                .archived(json.get("archived").asBoolean())
+                .datapointPrice(json.get("datapointPrice").asDouble())
+                .datapointCount(nums.toArray().length)
+                .uploadedAt(json.get("uploadedAt").asLong())
                 .datapointMax(nums.stream().max(Integer::compare).orElseGet(() -> 0)) // TODO: possible fuckup
                 .datapointMin(nums.stream().min(Integer::compare).orElseGet(() -> 0))
                 .build();
 
         if (json.hasNonNull("description")) {
-            dataset.setDescription(String.valueOf(json.get("description")));
+            dataset.setDescription(removeQuotes.apply(json, "description"));
         }
 
         DataStore data = DataStore
@@ -135,16 +144,7 @@ public class DatasetController {
         if (json.hasNonNull("archived")) {
             dataset.setArchived(json.get("archived").asBoolean());
         }
-
-        // DataStore dataStore = repoData.getDataStoreByDatasetId(id);
-        // if (json.hasNonNull("file")) {
-        // dataStore.setData(new
-        // SerialBlob(Parse.getBytesFromEncodedString(removeQuotes.apply(json,
-        // "file"))));
-        // }
-
         repository.save(dataset);
-        // repoData.save(dataStore);
 
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
