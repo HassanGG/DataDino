@@ -61,6 +61,7 @@ export const AdminPage = () => {
 
   const updateOrderState = async (orderId: string, state: OrderState) => {
     await OrderService.patch({ id: orderId, state })
+    query.refetch()
   }
 
   // We need both the orders and datasets for the rest of the
@@ -123,7 +124,6 @@ export const AdminPage = () => {
       }
 
       const onSubmit = async (values: CreateDatasetForm) => {
-        console.log(values)
         setIsLoading(true)
         const { file, name, datapointPrice, archived, description } = values
         if (!file) throw "File was not provided"
@@ -144,12 +144,14 @@ export const AdminPage = () => {
         setIsLoading(false)
       }
 
-      const graphData = orders.map(order => {
-        return {
-          date: order.purchasedAt,
-          price: order.total,
-        }
-      })
+      const graphData = orders
+        .map(order => {
+          return {
+            date: order.purchasedAt,
+            price: order.total,
+          }
+        })
+        .sort((a, b) => a.date - b.date)
 
       return (
         <>
