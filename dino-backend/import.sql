@@ -62,7 +62,6 @@ VALUES ('cbf7a3d4-e238-4f28-8b0c-b5306ad88d04', 'Jumanji', 'Jumanji@hotmail.com'
 INSERT INTO orders (id, purchased_at, state, total, user_id)
 VALUES ('1696ab53-ec44-40d7-ba78-bb2f92dc3d3c', 1141303286 , 'Cancelled', 23.34, 'cbf7a3d4-e238-4f28-8b0c-b5306ad88d04');
 
-
 INSERT INTO order_item (order_item_id, datapoint_count, dataset_id, order_id)
 VALUES ('0b627ec3-70d1-4f30-ba43-e98f0545dcad', 3, '3b3d3341-f7aa-485f-94ac-2c36062af1f6', '35b14ea0-52a7-4b6b-8034-47c4034a8d7a');
 INSERT INTO order_item (order_item_id, datapoint_count, dataset_id, order_id)
