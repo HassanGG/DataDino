@@ -23,14 +23,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/dino-backend/datasets")
 @Controller
 public class DatasetController {
-    private final BiFunction<JsonNode, String, String> removeQuotes = (jsonObj, str) -> jsonObj
-            .get(str)
-            .toString()
-            .replace("\"", "");
     @Autowired
     private DatasetRepository repository;
     @Autowired
     private DataStoreRepository repoData;
+
+    private final BiFunction<JsonNode, String, String> removeQuotes = (jsonObj, str) -> jsonObj
+            .get(str)
+            .toString()
+            .replace("\"", "");
 
     @RequestMapping(value = "", method = GET)
     @ResponseBody
@@ -41,10 +42,17 @@ public class DatasetController {
     @RequestMapping(value = "/{id}", method = GET)
     @ResponseBody
     private ResponseEntity<Dataset> getDatasetById(@PathVariable String id) {
-        Optional<Dataset> dataset = repository.findById(UUID.fromString(id));
+        Optional<Dataset> dataset;
+        try {
+            dataset  = repository.findById(UUID.fromString(id));
+        } catch (IllegalArgumentException e) {
+            System.out.println("--> Exception: Tried to pass invalid UUID as dataset id in GET request.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         if (dataset.isEmpty()) {
-            new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            System.out.println("--> Exception: Provided id does not have corresponding dataset.");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(dataset.get(), HttpStatus.OK);
