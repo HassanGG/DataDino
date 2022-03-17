@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom"
 import { format } from "timeago.js"
 import aveta from "aveta"
 import truncate from "truncate"
-import { SyntheticEvent } from "react"
 
 export const DatasetCard = ({ dataset }: { dataset: DatasetMeta }) => {
   const _style = useStyle({
@@ -13,15 +12,6 @@ export const DatasetCard = ({ dataset }: { dataset: DatasetMeta }) => {
     [style.card]: true,
     "card mb-3": true,
   })
-
-  const linkStyle = useStyle({
-    [style.disabled]: dataset.archived,
-    "stretched-link": !dataset.archived,
-  })
-
-  const onLinkClick = (e: SyntheticEvent) => {
-    if (dataset.archived) e.preventDefault()
-  }
 
   const link = `/datasets/${dataset.id}`
 
@@ -31,7 +21,7 @@ export const DatasetCard = ({ dataset }: { dataset: DatasetMeta }) => {
         <div className="row g-0">
           <div className="col-md-5 card-body text-center d-flex flex-column">
             <h5 className="card-title fs-4 fw-bold">
-              ${Math.round(dataset.datapointPrice)}
+              ${dataset.datapointPrice.toFixed(2)}
             </h5>
             <p className="card-text fs-6 fst-italic text-nowrap">/ datapoint</p>
 
@@ -52,7 +42,7 @@ export const DatasetCard = ({ dataset }: { dataset: DatasetMeta }) => {
                 Uploaded {format(dataset.uploadedAt)}
               </small>
             </p>
-            <NavLink to={link} className={linkStyle} onClick={onLinkClick}>
+            <NavLink to={link} className="stretched-link">
               More
             </NavLink>
           </div>
