@@ -47,7 +47,6 @@ export const ProfilePage = () => {
   }
 
   const onOrdersData = (orders: Order[]) => {
-    console.log(orders)
     const orderRows = orders.map((order, index) => {
       const prettyPurchasedAt = moment(new Date(order.purchasedAt)).format(
         "DD/MM/YYYY",
@@ -55,7 +54,6 @@ export const ProfilePage = () => {
       const prettyTotal = "$" + order.total.toFixed(2)
 
       const onDatasetsData = (datasets: DatasetMeta[]) => {
-        console.log(order.items)
         const orderItemRows = order.items?.map(orderItem => {
           const dataset = datasets.find(({ id }) => id === orderItem.datasetId)
           if (!dataset) throw "Dataset corresponding to order item not found"

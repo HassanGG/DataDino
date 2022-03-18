@@ -61,7 +61,7 @@ export const DatasetService = new (class {
     datapointPrice?: number
     archived?: boolean
     file?: File
-  }): Promise<void> {
+  }): Promise<string | undefined> {
     const body = JSON.stringify({
       name,
       description,
@@ -74,7 +74,7 @@ export const DatasetService = new (class {
       body,
     }
 
-    return fetchJson(`${baseUrl}/${id}`, init)
+    return fetchJson(`${baseUrl}/${id}`, init, true)
   }
 
   async getDatapoints({
