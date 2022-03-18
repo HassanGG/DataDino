@@ -38,8 +38,6 @@ VALUES ('dc31adcb-1740-43fc-8fbe-ef859654fada', 'Janice', 'Janice@gmail.co.uk', 
 INSERT INTO orders (id, purchased_at, state, total, user_id)
 VALUES ('fec3fad9-f605-4c44-bfdd-ac150fd8a5ed', 1765170888000, 'New', 100, 'dc31adcb-1740-43fc-8fbe-ef859654fada');
 INSERT INTO users (id, display_name, email, is_admin, password)
-VALUES ('9013ccbe-0ad9-41a4-8619-cae04b85cb68', 'admin', 'admin@admin.com', true, 'admin');
-INSERT INTO users (id, display_name, email, is_admin, password)
 VALUES ('8d6e207f-3634-484e-a7ae-0205bf0ceae2', 'Janthony', 'Janthony@jail.com', false, 'asdfkjflasldkj');
 INSERT INTO orders (id, purchased_at, state, total, user_id)
 VALUES ('46796392-1760-4fc6-aada-ec3b3c12d38e', 956778459000, 'New', 5.6, '8d6e207f-3634-484e-a7ae-0205bf0ceae2');
