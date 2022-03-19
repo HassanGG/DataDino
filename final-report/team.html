@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: "Roboto Thin", system-ui;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .team-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        body {
+            margin: 10px 30px;
+            background-color: aliceblue;
+            display: grid;
+            justify-content: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .last-item {
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Team Name: Team 7 2.0</h1>
+
+    <h2>The Team</h2>
+
+    <ul class="team-container">
+        <li>Hassan Ghnewa <br>
+            Student id: 19490814<br>
+            Email: hassan.ghnewa@ucdconnect.ie<br>
+            <img src="hassan.jpg" style="max-height: 300px;">
+        </li>
+
+        <li>Vincent Pandac <br>
+            Student id: 19451872<br>
+            Email: john.pandac@ucdconnect.ie<br>
+            <img src="vincent.jpg" style="max-height: 300px;">
+        </li>
+        <li>Logan Czernel <br>
+            Student id: 19304973 <br>
+            logan.czernel@ucdconnect.ie<br>
+            <img src="logan.jpg" style="max-height: 300px;">
+        </li>
+    </ul>
+
+    <h2>Requirements & Features</h2>
+
+    <div>We know we met all requirements. The below table shows who contributed to each one, as well as our additional features.</div>
+
+    <div class="requirements">
+        <table>
+            <thead>
+                <tr>
+                    <th>Requirement ID & Description</th>
+                    <th>Student Responsible</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>G0 : View the datasets currently on offer</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>G1 : View details about a particular dataset.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>G2 : Add a set of datapoints to a shopping cart.</td>
+                    <td>Logan (frontend)</td>
+                </tr>
+                <tr>
+                    <td>G3 : Change the number of the selected datapoints in the shopping cart.</td>
+                    <td>Logan (frontend)</td>
+                </tr>
+                <tr>
+                    <td>G4 : Remove a selected dataset from the shopping cart.</td>
+                    <td>Logan (frontend)</td>
+                </tr>
+                <tr>
+                    <td>G5 : Create a customer account.</td>
+                    <td>Vincent (frontend), Hassan (backend)</td>
+                </tr>
+                <tr>
+                    <td>G6 : Log in to their account.</td>
+                    <td>Vincent (frontend), Hassan (backend)</td>
+                </tr>
+                <tr class="last-item">
+                    <td><strong>G7 : Dockerize the backend</strong></td>
+                    <td>Hassan</td>
+                </tr>
+                <tr>
+                    <td>C0 : Go to the checkout to purchase orders in their shopping cart.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>C1 : Use a (fake) payment portal to pay for their goods.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>C2 : View their order history.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr class="last-item">
+                    <td><strong>C3 : Dockerize the frontend</strong></td>
+                    <td>Logan</td>
+                </tr>
+                <tr>
+                    <td>O0: Login to the marketplace.</td>
+                    <td>Vincent (frontend), Hassan (backend)</td>
+                </tr>
+                <tr>
+                    <td>O1 : Add datasets to the marketplace.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>O2 : Hide datasets to make them no longer available.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>O3 : View all orders.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>O4 : Change the state of orders.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr>
+                    <td>O5 : Edit dataset details.</td>
+                    <td>Logan (frontend), Hassan & Vincent (backend)</td>
+                </tr>
+                <tr class="last-item">
+                    <td><strong>O6 : Admin can view sale graphs</strong></td>
+                    <td>Logan</td>
+                </tr>
+                <tr>
+                    <td>D0 : Team registration</td>
+                    <td>Hassan</td>
+                </tr>
+                <tr>
+                    <td>D1 : Progress report</td>
+                    <td>Vincent</td>
+                </tr>
+                <tr>
+                    <td>D2 : Video Demo</td>
+                    <td>Vincent</td>
+                </tr>
+                <tr>
+                    <td>D3 : Wireframe design of the project</td>
+                    <td>Everyone</td>
+                </tr>
+                <tr>
+                    <td>D4 : Final report</td>
+                    <td>Everyone</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><em>* bold lines are extras</em></p>
+    </div>
+    <br>
+
+    <h2>Wireframes</h2>
+    <div>We designed our project in Whimsical; here is a public link to view the design: <a href="https://whimsical.com/datadino-7K4ZNjeW2P4o1UvJKjuGBJ">click me</a></div>
+    
+    <h2>Running</h2>
+    <div>Our project run instructions can be found in the repository README file.</div>
+
+    <h2>Reflections</h2>
+
+    <h3>What have we learnt</h3>
+    <ul>
+        <li>React - we learned how to use it (to a basic degree)</li>
+        <li>We got great experience working in two groups in parallel without much difficulty.
+            We did this by writing API contracts that the backend developed towards and the frontend
+            expected. It worked very well and we were able to replace the mock server with requests to 
+            the actual backend very quickly.
+        </li>
+        <li>We got more practice pair programming - this was a very enjoyable and productive use of time.</li>
+    </ul>
+
+    <h3>What would we use differently</h3>
+    <ul>
+        <li>
+            Done more research into Spring boot; there is a lot of magic - things happening automatically 
+            that are difficult to debug and having more knowledge about Spring internals may have helped.
+        </li>
+        <li>
+            Same idea with React; knowing more about component lifecycles would have been of great use debugging 
+            issues regarding reactivity.
+        </li>
+        <li>
+            We barely did any code reviews; our main branch could have been cleaner at times. 
+        </li>
+    </ul>
+</body>
+
+</html>
