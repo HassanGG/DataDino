@@ -1,30 +1,22 @@
+> If any scripts don't work you can copy paste the code from the scripts into terminal.
+
+#Save images
+`save.sh`
+
+#Load images
+`load.sh`
+
 # Run
 `bash run.sh`
 
 # Clean
 `bash clean.sh`
 
-# Run sql client against db
-`docker run -it --network dino-backend_dino-net --rm mysql mysql -hdino-backend-dino-db-1 -uroot -p`
-or `bash client.sh`
-- password is "root"
+## Populate Database
+`bash populate.sh`
 
-# Most important 
 ### Repackage backend
 `mvn package -D skipTests`
 
 ### Run Docker containers
 `docker-compose up --build --force-recreate`
-
-### Stop all containers
-`docker stop $(docker ps -a -q)`
-
----
-# Useful
-
-### Delete ALL containers
-`docker rm  $(docker ps -q -a)`
-
-### Remove unused images (if needed)
-check with: `docker images -a`\
-delete with: `docker image prune -a`
