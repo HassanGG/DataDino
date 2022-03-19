@@ -1,0 +1,56 @@
+version: "3"
+services:
+  dino-db:
+    container_name: dino-db
+    build:
+      context: ./dino-backend
+      dockerfile: Dockerfile.db
+    image: dino-mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - dino-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dinodb
+
+  dino-web:
+    container_name: dino-web
+    build:
+      context: ./dino-backend
+      dockerfile: Dockerfile.web
+    image: dino-spring
+    ports:
+      - "8080:8080"
+    networks:
+      - dino-net
+    depends_on:
+      - "dino-db"
+    command:
+      [
+        "./wait-for-it.unix.sh",
+        "-t",
+        "30",
+        "dino-db:3306",
+        "--",
+        "java",
+        "-jar",
+        "dino.jar",
+      ]
+    environment:
+      spring.datasource.url: "jdbc:mysql://dino-db:3306/dinodb"
+  
+  dino-ui:
+    container_name: dino-ui
+    build:
+      context: ./dino-ui
+      dockerfile: Dockerfile.ui
+    image: dino-ui
+    ports:
+      - "4040:3000"
+    networks:
+      - dino-net
+    depends_on:
+      - "dino-web"
+networks:
+  dino-net:

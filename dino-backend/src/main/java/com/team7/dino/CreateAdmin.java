@@ -17,14 +17,16 @@ public class CreateAdmin {
 
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
-        User admin = User.builder()
-                .id(UUID.randomUUID())
-                .isAdmin(true)
-                .email("admin@admin.com")
-                .password("admin")
-                .displayName("Admin")
-                .build();
-        repo.save(admin);
+        if (repo.getUserByEmail("admin@admin.com").isEmpty()) {
+            User admin = User.builder()
+                    .id(UUID.randomUUID())
+                    .isAdmin(true)
+                    .email("admin@admin.com")
+                    .password("admin")
+                    .displayName("Admin")
+                    .build();
+            repo.save(admin);
+        }
     }
 
 }

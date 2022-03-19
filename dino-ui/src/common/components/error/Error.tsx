@@ -8,7 +8,7 @@ export const Error = ({ text }: { text: string }) => {
 
   return (
     <>
-      <div className={_style}>FUCK an error occured: {text}</div>
+      <div className={_style}>Shoot, an error occured: {text}</div>
     </>
   )
 }
