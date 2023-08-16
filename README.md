@@ -1,4 +1,4 @@
-# Team7-2.0
+# DataDino
 
 Data Dino is a fully functional data marketplace, allowing users to upload data in any form and sell to other users.
 
